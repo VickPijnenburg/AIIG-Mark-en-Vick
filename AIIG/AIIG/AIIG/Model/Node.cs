@@ -33,6 +33,25 @@ namespace AIIG.Model
             set { position = value; }
         }
 
+        public LinkedList<Node> AttachedNodes
+        {
+            get
+            {
+                LinkedList<Node> result = new LinkedList<Node>();
+                foreach (Edge edge in edges)
+                {
+                    if (edge.Node1 == this)
+                    {
+                        result.AddLast(edge.Node2);
+                    }
+                    else
+                    {
+                        result.AddLast(edge.Node1);
+                    }
+                }
+                return result;
+            }
+        }
 
 
         //Methods
@@ -41,5 +60,7 @@ namespace AIIG.Model
         {
             edges.AddLast(edge);
         }
+
+
     }
 }

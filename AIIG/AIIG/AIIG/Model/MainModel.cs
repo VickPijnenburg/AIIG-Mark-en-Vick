@@ -7,12 +7,26 @@ namespace AIIG.Model
 {
     class MainModel
     {
+
+        //Fields
+
         private static MainModel instance;
+
+        private Area area;
+
+
+
+        //Constructors
 
         private MainModel()
         {
             instance = this;
+            area = new Area();
         }
+
+
+
+        //Properties
 
         public static MainModel Instance
         {
@@ -25,6 +39,11 @@ namespace AIIG.Model
 
                 return instance;
             }
+        }
+
+        public Area Area
+        {
+            get { return area; }
         }
     }
 }

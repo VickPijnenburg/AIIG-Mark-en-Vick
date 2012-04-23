@@ -25,7 +25,7 @@ namespace AIIG.Model
         }
 
 
-
+        
         //Properties
 
         public static MainModel Instance

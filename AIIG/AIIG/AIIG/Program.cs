@@ -10,7 +10,7 @@ namespace AIIG
         /// </summary>
         static void Main(string[] args)
         {
-            using (MainGame game = new MainGame())
+            using (MainGame game = MainGame.Instance)
             {
                 game.Run();
             }

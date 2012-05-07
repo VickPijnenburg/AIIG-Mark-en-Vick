@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using AIIG.View;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AIIG.Model
 {
@@ -60,6 +62,11 @@ namespace AIIG.Model
         public void LinkToEdge(Edge edge)
         {
             edges.AddLast(edge);
+        }
+
+        public void Draw(GameTime gameTime)
+        {
+            MainView.Instance.SpriteBatch.Draw(MainGame.Instance.Content.Load<Texture2D>("GameAssets/node"),Position, Color.White);
         }
 
 

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using AIIG.Model;
+using AIIG.View;
 
 namespace AIIG
 {
@@ -86,9 +87,7 @@ namespace AIIG
         
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            MainView.Instance.Draw(gameTime);
 
             base.Draw(gameTime);
         }

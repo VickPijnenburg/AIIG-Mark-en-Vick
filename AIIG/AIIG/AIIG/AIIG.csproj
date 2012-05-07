@@ -110,6 +110,9 @@
     <Compile Include="Model\Area.cs" />
     <Compile Include="Model\AreaFactory.cs" />
     <Compile Include="Model\Edge.cs" />
+    <Compile Include="Model\Entiteit.cs" />
+    <Compile Include="Model\Haas.cs" />
+    <Compile Include="Model\Koe.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

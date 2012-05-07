@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace AIIG.Model
 {
@@ -21,7 +22,7 @@ namespace AIIG.Model
         private MainModel()
         {
             instance = this;
-            area = new Area();
+            area = AreaFactory.CreateArea();
         }
 
 
@@ -44,6 +45,11 @@ namespace AIIG.Model
         public Area Area
         {
             get { return area; }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            //nothing
         }
     }
 }

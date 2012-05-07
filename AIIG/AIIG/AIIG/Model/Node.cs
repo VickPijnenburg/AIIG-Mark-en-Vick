@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace AIIG.Model
 {
-    class Node
+    public class Node
     {
         //Fields
 
@@ -17,8 +17,9 @@ namespace AIIG.Model
 
         //Constructors
 
-        public Node(Vector2 position)
+        public Node(Area area, Vector2 position)
         {
+            area.AllNodes.AddLast(this);
             this.position = position;
             edges = new LinkedList<Edge>();
         }

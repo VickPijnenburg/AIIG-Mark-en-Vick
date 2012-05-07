@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AIIG.Model
 {
-    class Area
+    public class Area
     {
 
         //Fields

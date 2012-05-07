@@ -8,7 +8,7 @@ using AIIG.View;
 
 namespace AIIG.Model
 {
-    class Edge
+    public class Edge
     {
         //Fields
 
@@ -19,8 +19,9 @@ namespace AIIG.Model
 
         //Constructors
 
-        public Edge(Node node1, Node node2)
+        public Edge(Area area, Node node1, Node node2)
         {
+            area.AllEdges.AddLast(this);
             this.node1 = node1;
             this.node2 = node2;
         }

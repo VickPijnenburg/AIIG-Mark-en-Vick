@@ -24,6 +24,9 @@ namespace AIIG.Model
             area.AllEdges.AddLast(this);
             this.node1 = node1;
             this.node2 = node2;
+
+            node1.LinkToEdge(this);
+            node2.LinkToEdge(this);
         }
 
 

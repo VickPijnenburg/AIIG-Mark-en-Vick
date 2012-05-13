@@ -41,6 +41,21 @@ namespace AIIG.Model
 			set { node = value; }
 		}
 
+        public Vector2 Origin
+        {
+            get { return new Vector2(Width / 2, Height / 2); }
+        }
+
+        public int Width
+        {
+            get { return texture.Width; }
+        }
+
+        public int Height
+        {
+            get { return texture.Height; }
+        }
+
 
         //Methods
 
@@ -61,7 +76,7 @@ namespace AIIG.Model
 
 		public void Draw(GameTime gameTime)
 		{
-			MainView.Instance.SpriteBatch.Draw(Texture, Node.Position, Color.White);
+			MainView.Instance.SpriteBatch.Draw(Texture, (Node.Position - Origin), Color.White);
 		}
 	}
 }

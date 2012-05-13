@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AIIG.Model
 {
 	class Koe : Entiteit
 	{
+
+        public Koe(Texture2D startTexture)
+            : base(startTexture)
+        { }
 	}
 }

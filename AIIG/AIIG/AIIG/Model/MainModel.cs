@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AIIG.Model
 {
@@ -15,6 +16,8 @@ namespace AIIG.Model
 
         private Area area;
 
+		private Hare hare;
+		private Cow cow;
 
 
         //Constructors
@@ -22,9 +25,10 @@ namespace AIIG.Model
         private MainModel()
         {
             instance = this;
-            area = AreaFactory.CreateArea();
+			area = AreaFactory.CreateArea();
+			hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
+			cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
         }
-
 
         
         //Properties
@@ -46,6 +50,19 @@ namespace AIIG.Model
         {
             get { return area; }
         }
+
+		public Hare Hare
+		{
+			get { return hare; }
+		}
+
+		public Cow Cow
+		{
+			get { return cow; }
+		}
+
+
+		//Methods
 
         public void Update(GameTime gameTime)
         {

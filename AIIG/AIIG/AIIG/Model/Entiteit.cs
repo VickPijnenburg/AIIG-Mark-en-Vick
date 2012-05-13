@@ -8,7 +8,7 @@ using AIIG.View;
 
 namespace AIIG.Model
 {
-	class Entiteit
+	class Entity
 	{
 
         //Fields
@@ -20,28 +20,33 @@ namespace AIIG.Model
 
         //Constructors
 
-        public Entiteit(Texture2D startTexture)
+        public Entity(Texture2D startTexture)
         {
             texture = startTexture;
         }
 
 
 
-        //Properties
+		//Properties
 
-        public Texture2D Texture
-        {
-            get { return texture; }
-            set { texture = value; }
-        }
+		public Texture2D Texture
+		{
+			get { return texture; }
+			set { texture = value; }
+		}
 
+		public Node Node
+		{
+			get { return node; }
+			set { node = value; }
+		}
 
 
         //Methods
 
-        public void Draw(GameTime gameTime)
-        {
-            MainView.Instance.SpriteBatch.Draw(texture, node.Position, Color.White);
-        }
+		public void Draw(GameTime gameTime)
+		{
+			MainView.Instance.SpriteBatch.Draw(Texture, Node.Position, Color.White);
+		}
 	}
 }

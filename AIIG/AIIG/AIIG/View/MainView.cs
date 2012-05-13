@@ -65,6 +65,7 @@ namespace AIIG.View
 
             DrawEdges(gameTime);
             DrawNodes(gameTime);
+			DrawEntities(gameTime);
 
             SpriteBatch.End();
         }
@@ -88,5 +89,11 @@ namespace AIIG.View
                 node.Draw(gameTime);
             }
         }
+
+		private void DrawEntities(GameTime gameTime)
+		{
+			MainModel.Instance.Hare.Draw(gameTime);
+			MainModel.Instance.Cow.Draw(gameTime);
+		}
     }
 }

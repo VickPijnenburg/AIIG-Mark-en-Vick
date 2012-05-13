@@ -13,7 +13,7 @@ namespace AIIG.View
 
         //Constants
 
-        private static readonly Rectangle viewRect = new Rectangle(0, 0, 800, 600);
+        private static readonly Rectangle VIEW_RECT = new Rectangle(0, 0, 800, 600);
 
 
 
@@ -56,6 +56,11 @@ namespace AIIG.View
             get { return spriteBatch; }
         }
 
+        public Rectangle ViewRect
+        {
+            get { return VIEW_RECT; }
+        }
+
 
         //Methods
 
@@ -67,21 +72,17 @@ namespace AIIG.View
 
             DrawEdges(gameTime);
             DrawNodes(gameTime);
-			DrawEntities(gameTime);
+            DrawEntities(gameTime);
 
             SpriteBatch.End();
         }
 
         private void DrawEdges(GameTime gameTime)
         {
-            Texture2D texture = new Texture2D(MainGame.Instance.GraphicsDevice, viewRect.Width, viewRect.Height);
-
             foreach (Edge edge in MainModel.Instance.Area.AllEdges)
             {
-                edge.Draw(gameTime, texture);
+                edge.Draw(gameTime);
             }
-
-            SpriteBatch.Draw(texture, viewRect, Color.White);
         }
 
         private void DrawNodes(GameTime gameTime)
@@ -92,10 +93,10 @@ namespace AIIG.View
             }
         }
 
-		private void DrawEntities(GameTime gameTime)
-		{
-			MainModel.Instance.Hare.Draw(gameTime);
-			MainModel.Instance.Cow.Draw(gameTime);
-		}
+        private void DrawEntities(GameTime gameTime)
+        {
+            MainModel.Instance.Hare.Draw(gameTime);
+            MainModel.Instance.Cow.Draw(gameTime);
+        }
     }
 }

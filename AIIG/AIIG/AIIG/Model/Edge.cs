@@ -15,11 +15,13 @@ namespace AIIG.Model
         private Node node1;
         private Node node2;
 
+        private int cost;
+        private Texture2D costTexture;
 
 
         //Constructors
 
-        public Edge(Area area, Node node1, Node node2)
+        public Edge(Area area, Node node1, Node node2, int cost)
         {
             area.AllEdges.AddLast(this);
             this.node1 = node1;
@@ -27,6 +29,9 @@ namespace AIIG.Model
 
             node1.LinkToEdge(this);
             node2.LinkToEdge(this);
+
+            this.cost = cost;
+            costTexture = DetermineCostTexture();
         }
 
 
@@ -43,19 +48,63 @@ namespace AIIG.Model
             get { return node2; }
         }
 
+        public int Cost
+        {
+            get { return cost; }
+        }
+
 
 
         //Methods
 
-        public void Draw(GameTime gameTime, Texture2D texture)
+        public void Draw(GameTime gameTime)
         {
+            DrawLine();
+            DrawCost();
+        }
+
+        private void DrawLine()
+        {
+            Rectangle viewRect = MainView.Instance.ViewRect;
+            Texture2D lineTexture = new Texture2D(MainGame.Instance.GraphicsDevice, viewRect.Width, viewRect.Height);
+
             LineDrawingDevice.SetBHLine
                 (
-                texture,
+                lineTexture,
                 LineDrawingDevice.VectorToPoint(node1.Position),
                 LineDrawingDevice.VectorToPoint(node2.Position),
                 Color.Black
                 );
+
+            MainView.Instance.SpriteBatch.Draw(lineTexture, viewRect, Color.White);
+        }
+
+        private void DrawCost()
+        {
+            Texture2D castCostTexture = (Texture2D)costTexture;
+            Vector2 costPosition = ((Node1.Position + Node2.Position) / 2);
+            costPosition -= new Vector2(castCostTexture.Width / 2, castCostTexture.Height / 2);
+            MainView.Instance.SpriteBatch.Draw((Texture2D)costTexture, costPosition, Color.White);
+        }
+
+        private Texture2D DetermineCostTexture()
+        {
+            if (cost == 1)
+            {
+                return MainGame.Instance.Content.Load<Texture2D>("GameAssets/cost1");
+            }
+            else if (cost == 2)
+            {
+                return MainGame.Instance.Content.Load<Texture2D>("GameAssets/cost2");
+            }
+            else if (cost == 3)
+            {
+                return MainGame.Instance.Content.Load<Texture2D>("GameAssets/cost3");
+            }
+            else
+            {
+                return MainGame.Instance.Content.Load<Texture2D>("GameAssets/costUnknown");
+            }
         }
     }
 }

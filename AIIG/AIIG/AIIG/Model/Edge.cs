@@ -16,6 +16,7 @@ namespace AIIG.Model
         private Node node2;
 
         private int cost;
+        private Texture2D lineTexture;
         private Texture2D costTexture;
 
 
@@ -29,6 +30,8 @@ namespace AIIG.Model
 
             node1.LinkToEdge(this);
             node2.LinkToEdge(this);
+
+            this.lineTexture = CreateLineTexture();
 
             this.cost = cost;
             costTexture = DetermineCostTexture();
@@ -65,6 +68,19 @@ namespace AIIG.Model
 
         private void DrawLine()
         {
+            MainView.Instance.SpriteBatch.Draw(lineTexture, Vector2.Zero, Color.White);
+        }
+
+        private void DrawCost()
+        {
+            Texture2D castCostTexture = (Texture2D)costTexture;
+            Vector2 costPosition = ((Node1.Position + Node2.Position) / 2);
+            costPosition -= new Vector2(castCostTexture.Width / 2, castCostTexture.Height / 2);
+            MainView.Instance.SpriteBatch.Draw((Texture2D)costTexture, costPosition, Color.White);
+        }
+
+        private Texture2D CreateLineTexture()
+        {
             Rectangle viewRect = MainView.Instance.ViewRect;
             Texture2D lineTexture = new Texture2D(MainGame.Instance.GraphicsDevice, viewRect.Width, viewRect.Height);
 
@@ -76,15 +92,7 @@ namespace AIIG.Model
                 Color.Black
                 );
 
-            MainView.Instance.SpriteBatch.Draw(lineTexture, viewRect, Color.White);
-        }
-
-        private void DrawCost()
-        {
-            Texture2D castCostTexture = (Texture2D)costTexture;
-            Vector2 costPosition = ((Node1.Position + Node2.Position) / 2);
-            costPosition -= new Vector2(castCostTexture.Width / 2, castCostTexture.Height / 2);
-            MainView.Instance.SpriteBatch.Draw((Texture2D)costTexture, costPosition, Color.White);
+            return lineTexture;
         }
 
         private Texture2D DetermineCostTexture()

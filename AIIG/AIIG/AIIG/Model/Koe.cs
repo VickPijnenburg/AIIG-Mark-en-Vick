@@ -13,7 +13,7 @@ namespace AIIG.Model
 		public Cow(Texture2D startTexture)
 			: base(startTexture)
 		{
-			Node = MainModel.Instance.Area.AllNodes.Last.Value;
+			randomNode();
 		}
 	}
 }

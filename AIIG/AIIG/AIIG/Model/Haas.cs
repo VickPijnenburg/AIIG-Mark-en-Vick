@@ -13,7 +13,7 @@ namespace AIIG.Model
 		public Hare(Texture2D startTexture)
 			: base(startTexture)
 		{
-			Node = MainModel.Instance.Area.AllNodes.First.Value;
+			randomNode();
 		}
 	}
 }

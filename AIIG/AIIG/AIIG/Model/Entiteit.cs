@@ -44,6 +44,21 @@ namespace AIIG.Model
 
         //Methods
 
+		public void randomNode()
+		{
+			Random random = new Random();
+			int randomNumber = random.Next(0, MainModel.Instance.Area.AllNodes.Count - 1);
+
+			Node newNode = MainModel.Instance.Area.AllNodes.ElementAt(randomNumber);
+
+			if(newNode == MainModel.Instance.Cow.node || newNode == MainModel.Instance.Hare.node)
+			{
+
+			}
+			Node = 
+			
+		}
+
 		public void Draw(GameTime gameTime)
 		{
 			MainView.Instance.SpriteBatch.Draw(Texture, Node.Position, Color.White);

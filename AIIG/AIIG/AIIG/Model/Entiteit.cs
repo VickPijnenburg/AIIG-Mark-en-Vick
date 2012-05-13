@@ -61,17 +61,29 @@ namespace AIIG.Model
 
 		public void randomNode()
 		{
-			Random random = new Random();
-			int randomNumber = random.Next(0, MainModel.Instance.Area.AllNodes.Count - 1);
 
-			Node newNode = MainModel.Instance.Area.AllNodes.ElementAt(randomNumber);
+			Node newNode = null;
+			bool foundOne = false;
 
-			if(newNode == MainModel.Instance.Cow.node || newNode == MainModel.Instance.Hare.node)
+			while (foundOne != true)
 			{
-
+				Random random = new Random();
+				int randomNumber = random.Next(0, MainModel.Instance.Area.AllNodes.Count - 1);
+				newNode = MainModel.Instance.Area.AllNodes.ElementAt(randomNumber);
+				if (MainModel.Instance.Cow != null)
+				{
+					if (newNode != MainModel.Instance.Cow.node)
+					{
+						foundOne = true;
+						Node = newNode;
+					}
+				}
+				else
+				{
+					foundOne = true;
+					Node = newNode;
+				}
 			}
-			Node = 
-			
 		}
 
 		public void Draw(GameTime gameTime)

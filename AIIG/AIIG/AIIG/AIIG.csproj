@@ -107,10 +107,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\MainController.cs" />
     <Compile Include="Model\Area.cs" />
     <Compile Include="Model\AreaFactory.cs" />
     <Compile Include="Model\Edge.cs" />
     <Compile Include="Model\Entiteit.cs" />
+    <Compile Include="Model\EventManager.cs" />
     <Compile Include="Model\Haas.cs" />
     <Compile Include="Model\Koe.cs" />
     <Compile Include="Model\MainModel.cs" />
@@ -160,9 +162,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

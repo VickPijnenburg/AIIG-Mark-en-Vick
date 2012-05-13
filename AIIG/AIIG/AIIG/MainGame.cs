@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using AIIG.Model;
 using AIIG.View;
+using AIIG.Controller;
 
 namespace AIIG
 {
@@ -79,6 +80,7 @@ namespace AIIG
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            MainController.Instance.Update(gameTime);
             MainModel.Instance.Update(gameTime);
 
             base.Update(gameTime);

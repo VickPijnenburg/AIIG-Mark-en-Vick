@@ -19,7 +19,8 @@ namespace AIIG.Model
 
         public void Update(GameTime gameTime)
         {
-            if (Node.AttachedNodes.Count > 0)
+            if (MainModel.Instance.EventManagement.CowShouldMove
+                && Node.AttachedNodes.Count > 0)
             {
                 MoveToRandomAttachedNode();
             }

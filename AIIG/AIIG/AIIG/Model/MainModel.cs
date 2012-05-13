@@ -14,6 +14,8 @@ namespace AIIG.Model
 
         private static MainModel instance;
 
+        private EventManager eventManagement;
+
         private Area area;
 
 		private Hare hare;
@@ -25,6 +27,9 @@ namespace AIIG.Model
         private MainModel()
         {
             instance = this;
+
+            eventManagement = new EventManager();
+
 			area = AreaFactory.CreateArea();
 			hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
 			cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
@@ -44,6 +49,11 @@ namespace AIIG.Model
 
                 return instance;
             }
+        }
+
+        public EventManager EventManagement
+        {
+            get { return eventManagement; }
         }
 
         public Area Area

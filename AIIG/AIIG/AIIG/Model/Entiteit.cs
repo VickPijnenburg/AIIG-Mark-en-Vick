@@ -70,9 +70,9 @@ namespace AIIG.Model
 				Random random = new Random();
 				int randomNumber = random.Next(0, MainModel.Instance.Area.AllNodes.Count - 1);
 				newNode = MainModel.Instance.Area.AllNodes.ElementAt(randomNumber);
-				if (MainModel.Instance.Cow != null)
+				if (MainModel.Instance.Hare != null)
 				{
-					if (newNode != MainModel.Instance.Cow.node)
+					if (newNode != MainModel.Instance.Hare.node)
 					{
 						foundOne = true;
 						Node = newNode;

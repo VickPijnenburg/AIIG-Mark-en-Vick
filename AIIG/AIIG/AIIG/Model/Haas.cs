@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace AIIG.Model
 {
@@ -14,6 +15,14 @@ namespace AIIG.Model
 			: base(startTexture)
 		{
 			randomNode();
+		}
+
+		public void Update(GameTime gameTime)
+		{
+			if (Node == MainModel.Instance.Cow.Node)
+			{
+				randomNode();
+			}
 		}
 	}
 }

@@ -77,7 +77,7 @@ namespace AIIG.Model
         public void Update(GameTime gameTime)
         {
             Cow.Update(gameTime);
-            //Hare.Update(gameTime);
+            Hare.Update(gameTime);
         }
     }
 }

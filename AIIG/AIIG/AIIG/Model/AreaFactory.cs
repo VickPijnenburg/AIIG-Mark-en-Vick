@@ -12,13 +12,13 @@ namespace AIIG.Model
         {
             Area area = new Area();
 
-            Node node1 = new Node(area, new Vector2(10, 30));
+            Node node1 = new Node(area, new Vector2(50, 50));
             Node node2 = new Node(area, new Vector2(300, 70));
             Node node3 = new Node(area, new Vector2(400, 140));
             Node node4 = new Node(area, new Vector2(90, 300));
             Node node5 = new Node(area, new Vector2(450, 300));
             Node node6 = new Node(area, new Vector2(600, 400));
-            Node node7 = new Node(area, new Vector2(100, 200));
+            Node node7 = new Node(area, new Vector2(150, 200));
 
             Edge edge1 = new Edge(area, node1, node2);
             Edge edge2 = new Edge(area, node4, node3);

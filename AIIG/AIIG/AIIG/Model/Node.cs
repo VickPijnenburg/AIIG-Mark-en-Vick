@@ -14,6 +14,7 @@ namespace AIIG.Model
 
         private Vector2 position;
         private LinkedList<Edge> edges;
+        private Texture2D texture;
 
 
 
@@ -24,6 +25,8 @@ namespace AIIG.Model
             area.AllNodes.AddLast(this);
             this.position = position;
             edges = new LinkedList<Edge>();
+
+            texture = MainGame.Instance.Content.Load<Texture2D>("GameAssets/node");
         }
 
 
@@ -34,6 +37,21 @@ namespace AIIG.Model
         {
             get { return position; }
             set { position = value; }
+        }
+
+        public Vector2 Origin
+        {
+            get { return new Vector2(Width / 2, Height / 2); }
+        }
+
+        public int Width
+        {
+            get { return texture.Width; }
+        }
+
+        public int Height
+        {
+            get { return texture.Height; }
         }
 
         public LinkedList<Node> AttachedNodes
@@ -66,7 +84,7 @@ namespace AIIG.Model
 
         public void Draw(GameTime gameTime)
         {
-            MainView.Instance.SpriteBatch.Draw(MainGame.Instance.Content.Load<Texture2D>("GameAssets/node"),Position, Color.White);
+            MainView.Instance.SpriteBatch.Draw(texture, (Position - Origin), Color.White);
         }
 
 

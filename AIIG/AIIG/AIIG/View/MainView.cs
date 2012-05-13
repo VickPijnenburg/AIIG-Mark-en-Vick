@@ -15,6 +15,8 @@ namespace AIIG.View
 
         private static readonly Rectangle viewRect = new Rectangle(0, 0, 800, 600);
 
+
+
         //Fields
 
         private static MainView instance;

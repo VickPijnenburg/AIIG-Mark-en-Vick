@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AIIG.Model
 {
-    class StateBehaviour
+    public class StateBehaviour
     {
     }
 }

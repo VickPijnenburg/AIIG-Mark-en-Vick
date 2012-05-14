@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace AIIG.Model
 {
-	class Cow : Entity
+	public class Cow : Entity
 	{
 		//Constructors
 

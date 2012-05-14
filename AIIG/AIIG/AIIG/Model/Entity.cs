@@ -8,7 +8,7 @@ using AIIG.View;
 
 namespace AIIG.Model
 {
-	class Entity
+	public class Entity
 	{
 
         //Enums
@@ -34,7 +34,6 @@ namespace AIIG.Model
 
 		private Node node;
         
-
 
 
         //Constructors
@@ -113,6 +112,11 @@ namespace AIIG.Model
 				}
 			}
 		}
+
+        public void AddBehaviour(StateBehaviour behaviour)
+        {
+            this.behaviour[behaviour.State] = behaviour;
+        }
 
 		public void Draw(GameTime gameTime)
 		{

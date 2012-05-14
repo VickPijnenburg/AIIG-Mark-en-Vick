@@ -12,7 +12,7 @@ namespace AIIG.Model
 		//Constructors
 
 		public Hare(Texture2D startTexture)
-			: base(startTexture)
+			: base(startTexture, State.Wandering)
 		{
 			randomNode();
 		}

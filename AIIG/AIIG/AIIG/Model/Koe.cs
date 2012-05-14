@@ -12,10 +12,14 @@ namespace AIIG.Model
 		//Constructors
 
 		public Cow(Texture2D startTexture)
-			: base(startTexture)
+			: base(startTexture, State.Chasing)
 		{
 			randomNode();
 		}
+
+
+
+        //Methods
 
         public void Update(GameTime gameTime)
         {

@@ -11,34 +11,56 @@ namespace AIIG.Model
 	class Entity
 	{
 
+        //Enums
+
+        public enum State
+        {
+            Idle,
+            Wandering,
+            Fleeing,
+            Chasing,
+            Evading,
+            CollisionAvoidance
+        }
+
+
+
         //Fields
 
-		private Node node;
+        private SortedDictionary<State, StateBehaviour> behaviour;
+        private State currentState;
+
         private Texture2D texture;
+
+		private Node node;
+        
 
 
 
         //Constructors
 
-        public Entity(Texture2D startTexture)
+        public Entity(Texture2D startTexture, State startState)
         {
-            texture = startTexture;
+            this.behaviour = new SortedDictionary<State, StateBehaviour>();
+            this.currentState = startState;
+
+            this.texture = startTexture;
         }
 
 
 
 		//Properties
 
+        public State CurrentState
+        {
+            get { return currentState; }
+            set { currentState = value; }
+        }
+
 		public Texture2D Texture
 		{
 			get { return texture; }
 			set { texture = value; }
-		}
-
-		public Node Node
-		{
-			get { return node; }
-			set { node = value; }
 		}
 
         public Vector2 Origin
@@ -54,6 +76,12 @@ namespace AIIG.Model
         public int Height
         {
             get { return texture.Height; }
+        }
+
+        public Node Node
+        {
+            get { return node; }
+            set { node = value; }
         }
 
 

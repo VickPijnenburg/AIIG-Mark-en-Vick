@@ -74,6 +74,12 @@ namespace AIIG.Model
             }
         }
 
+        public LinkedList<Edge> Edges
+        {
+            get { return new LinkedList<Edge>(edges); }
+        }
+
+
 
         //Methods
 

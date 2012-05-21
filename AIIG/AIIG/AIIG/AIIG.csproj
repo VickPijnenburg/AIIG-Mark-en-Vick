@@ -119,6 +119,7 @@
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\StateBehaviour.cs" />
     <Compile Include="Model\StateBehaviours\AStarChase.cs" />
+    <Compile Include="Model\StateBehaviours\AStarNodeCapsule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />

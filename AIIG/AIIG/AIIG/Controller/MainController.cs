@@ -67,6 +67,11 @@ namespace AIIG.Controller
                 (currentKeyboardState.IsKeyDown(Keys.Space)
                 && !previousKeyboardState.IsKeyDown(Keys.Space)
                 );
+
+			if (currentKeyboardState.IsKeyDown(Keys.Escape) && !previousKeyboardState.IsKeyDown(Keys.Escape))
+			{
+				MainGame.Instance.Exit();
+			}
         }
     }
 }

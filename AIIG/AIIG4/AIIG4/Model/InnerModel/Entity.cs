@@ -15,7 +15,7 @@ namespace AIIG4.Model.InnerModel
         //Constants//
         //////////////////////////////
 
-        private static readonly Vector2 INITIAL_TARGET_DIRECTION = Vector2.Zero;
+        private static readonly Vector2 INITIAL_STEERING_FORCE = Vector2.Zero;
 
 
 
@@ -27,7 +27,16 @@ namespace AIIG4.Model.InnerModel
 
         private LinkedList<Behaviour> behaviours;
 
-        private Vector2 targetDirection;
+        private float mass;
+        private float maxSpeed;
+        private float maxForce;
+        private float maxTurnRate;
+
+        private Vector2 Position;
+        private Vector2 velocity;
+        private Vector2 heading;
+        private Vector2 side;
+        private Vector2 currentSteeringForce;
 
 
 
@@ -41,9 +50,14 @@ namespace AIIG4.Model.InnerModel
 
             this.behaviours = new LinkedList<Behaviour>();
 
-            this.targetDirection = INITIAL_TARGET_DIRECTION;
+            this.currentSteeringForce = INITIAL_STEERING_FORCE;
 		}
 
+
+
+        //////////////////////////////
+        //Properties//
+        //////////////////////////////
 
 
         //////////////////////////////
@@ -55,14 +69,14 @@ namespace AIIG4.Model.InnerModel
 
         public virtual void Update(GameTime gameTime)
         {
-            RefreshTargetDirection();
+            RefreshSteeringForce();
             UpdateBehaviours(gameTime);
             Move(gameTime);
         }
 
-        public void RefreshTargetDirection()
+        public void RefreshSteeringForce()
         {
-            this.targetDirection = INITIAL_TARGET_DIRECTION;
+            this.currentSteeringForce = INITIAL_STEERING_FORCE;
         }
 
         private void UpdateBehaviours(GameTime gameTime)
@@ -78,7 +92,49 @@ namespace AIIG4.Model.InnerModel
 
         private void Move(GameTime gameTime)
         {
-            //TODO: let this thing move to target
+            UpdateVelocity(gameTime);
+            if (this.velocity.LengthSquared() > 0.000000001f)
+            {
+                UpdateHeading(gameTime);
+                UpdatePosition(gameTime);
+            }
+        }
+
+        private void UpdateVelocity(GameTime gameTime)
+        {
+            Vector2 acceleration = this.currentSteeringForce / this.mass;
+            this.velocity += acceleration * gameTime.ElapsedGameTime.Milliseconds;
+            if (TooFast())
+            {
+                this.velocity.Normalize();
+                this.velocity *= maxSpeed;
+            }
+        }
+
+        private void UpdateHeading(GameTime gameTime)
+        {
+            if (this.velocity.LengthSquared() > 0.000000001f)
+            {
+                this.heading = this.velocity;
+                this.heading.Normalize();
+
+                this.side = new Vector2(this.heading.Y, -this.heading.X);
+            }
+        }
+
+        private void UpdatePosition(GameTime gameTime)
+        {
+            this.Position += this.velocity * gameTime.ElapsedGameTime.Milliseconds;
+        }
+
+
+        /*Check methods*/
+
+        private bool TooFast()
+        {
+            float maxSpeedSquared = this.maxSpeed * this.maxSpeed;
+
+            return (this.velocity.LengthSquared() > maxSpeedSquared);
         }
 
 	}

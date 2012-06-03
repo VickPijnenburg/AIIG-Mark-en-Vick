@@ -8,13 +8,26 @@ namespace AIIG.Model.StateBehaviours
 {
 	class Wandering : StateBehaviour
 	{
+		//Fields
+
+		private int count;
+
+
+		//Constructors
+
 		public Wandering(Entity host)
 			: base(Entity.State.Wandering, host)
-		{}
+		{
+			count = 4;
+		}
+
+
+		//Methods
 
 		public override void Update(GameTime gameTime)
 		{
 			MoveToRandomAttachedNode();
+			updateCount();
 		}
 
 		private void MoveToRandomAttachedNode()
@@ -27,6 +40,20 @@ namespace AIIG.Model.StateBehaviours
 		{
 			Random randomGenerator = new Random();
 			return randomGenerator.Next(Host.Node.AttachedNodes.Count - 1);
+		}
+
+		private void updateCount()
+		{
+			if (count > 0 && MainModel.Instance.EventManagement.CowShouldMove)
+			{
+				count--;
+			}
+
+			if(count == 0)
+			{
+
+				MainModel.Instance.Cow.CurrentState = Entity.State.LookingForPill;
+			}
 		}
 	}
 }

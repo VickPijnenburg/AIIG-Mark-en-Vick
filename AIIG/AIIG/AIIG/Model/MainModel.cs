@@ -47,8 +47,8 @@ namespace AIIG.Model
 			cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
 			entities.Add(cow);
 
-            new AStarChase(cow);
-            cow.CurrentState = Entity.State.Chasing;
+            new Wandering(cow);
+            cow.CurrentState = Entity.State.Wandering;
         }
 
         

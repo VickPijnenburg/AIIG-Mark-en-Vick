@@ -14,7 +14,7 @@ namespace AIIG.Model
 		public Pill(Texture2D startTexture)
 			: base(startTexture, State.Idle)
 		{
-			randomNode();
+			GoToRandomEmptyNode();
 		}
 	}
 }

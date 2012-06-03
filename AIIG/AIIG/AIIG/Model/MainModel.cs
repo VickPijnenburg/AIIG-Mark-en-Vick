@@ -34,26 +34,52 @@ namespace AIIG.Model
             instance = this;
 
             eventManagement = new EventManager();
-
 			area = AreaFactory.CreateArea();
 
-			entities = new List<Entity>();
+            CreateEntities();
 
-			pill = new Pill(MainGame.Instance.Content.Load<Texture2D>("GameAssets/pill"));
-			entities.Add(pill);
+            SetUpPillBehaviour();
+            SetUpHareBehaviour();
+            SetUpCowBehaviour();
+        }
 
-			hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
-			entities.Add(hare);
+        private void CreateEntities()
+        {
+            this.entities = new List<Entity>();
 
-			cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
-			entities.Add(cow);
+            this.pill = new Pill(MainGame.Instance.Content.Load<Texture2D>("GameAssets/pill"));
+            entities.Add(pill);
 
-            new Wandering(cow);
-            new AStarChase(Entity.State.LookingForPill, cow, pill, Entity.State.Chasing);
-            new AStarChase(Entity.State.Chasing, cow, hare, Entity.State.Wandering);
-            
-            
-            cow.CurrentState = Entity.State.Wandering;
+            this.hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
+            entities.Add(hare);
+
+            this.cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
+            entities.Add(cow);
+        }
+
+        private void SetUpPillBehaviour()
+        {
+            new IdleTillCow(this.Pill);
+            new FleeToEmptyNode(this.Pill);
+
+            this.Pill.CurrentState = Entity.State.Idle;
+        }
+
+        private void SetUpHareBehaviour()
+        {
+            new IdleTillCow(this.Hare);
+            new FleeToEmptyNode(this.Hare);
+
+            this.Hare.CurrentState = Entity.State.Idle;
+        }
+
+        private void SetUpCowBehaviour()
+        {
+            new Wandering(this.Cow);
+            new AStarChase(Entity.State.LookingForPill, this.Cow, this.Pill, Entity.State.Chasing);
+            new AStarChase(Entity.State.Chasing, this.Cow, this.Hare, Entity.State.Wandering);
+
+            this.Cow.CurrentState = Entity.State.Wandering;
         }
 
         
@@ -109,6 +135,7 @@ namespace AIIG.Model
         {
             Cow.Update(gameTime);
 			Hare.Update(gameTime);
+            Pill.Update(gameTime);
         }
     }
 }

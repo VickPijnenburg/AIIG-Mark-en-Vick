@@ -162,6 +162,7 @@ namespace AIIG.Model.StateBehaviours
                     list[distance] = new SortedDictionary<int, AStarNodeCapsule>();
                 }
                 list[distance][capsule.Node.ID] = capsule;
+                System.Console.WriteLine("Closed node " + capsule.Node.ID);
             }
         }
 
@@ -173,15 +174,6 @@ namespace AIIG.Model.StateBehaviours
                 list[distanceToEnd] = new SortedDictionary<int, AStarNodeCapsule>();
             }
             list[distanceToEnd][capsule.Node.ID] = capsule;
-        }
-
-        private void RemoveNodeCapsuleFromClosedList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
-        {
-            list[(int)capsule.ShortestDistance].Remove(capsule.Node.ID);
-            if (list[(int)capsule.ShortestDistance].Count == 0)
-            {
-                list.Remove((int)capsule.ShortestDistance);
-            }
         }
 
         private void RemoveNodeCapsuleFromOpenList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)

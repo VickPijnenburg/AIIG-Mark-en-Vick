@@ -45,7 +45,7 @@ namespace AIIG.Model.StateBehaviours
                 {
                     double xSquared = Math.Pow((this.Node.Position.X - this.endNode.Position.X), 2);
                     double ySquared = Math.Pow((this.Node.Position.Y - this.endNode.Position.Y), 2);
-                    this.estimatedDistanceToEnd = (int) Math.Sqrt(xSquared + ySquared) / 155;
+                    this.estimatedDistanceToEnd = (int) Math.Sqrt(xSquared + ySquared) / 156;
                     Console.WriteLine("Estimated distance to end for node " + this.Node.ID + " is " + this.estimatedDistanceToEnd);
                 }
 

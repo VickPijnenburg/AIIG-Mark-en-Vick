@@ -135,13 +135,7 @@ namespace AIIG.Model
 		{
 			Cow.Update(gameTime);
 			Hare.Update(gameTime);
-<<<<<<< HEAD
 			Pill.Update(gameTime);
 		}
 	}
-=======
-            Pill.Update(gameTime);
-        }
-    }
->>>>>>> c2562e310cec3053221790e3bf39c71fc823db39
 }

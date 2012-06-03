@@ -9,14 +9,19 @@ namespace AIIG.Model.StateBehaviours
     public class AStarChase : StateBehaviour
     {
 
-        //Fields
+        //////////////////////////////
+        //Fields//
+        //////////////////////////////
 
         private LinkedList<Node> currentRoute;
         private Entity target;
         private Entity.State nextState;
 
 
-        //Constructors
+
+        //////////////////////////////
+        //Constructors//
+        //////////////////////////////
 
         public AStarChase(Entity.State state, Entity host, Entity target, Entity.State nextState)
             : base(state, host)
@@ -29,7 +34,19 @@ namespace AIIG.Model.StateBehaviours
 
 
 
-        //Methods
+        //////////////////////////////
+        //Methods//
+        //////////////////////////////
+
+
+        /*Reset methods*/
+
+        public override void Reset()
+        {
+            this.currentRoute = new LinkedList<Node>();
+        }
+
+        /*Update methods*/
 
         public override void Update(GameTime gameTime)
         {
@@ -93,6 +110,7 @@ namespace AIIG.Model.StateBehaviours
 
 
         /*Setup methods*/
+
         private void SetupAStarStart(out Dictionary<int, AStarNodeCapsule> capsuleMap, out SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> closedList, out SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> openList, Node startPoint)
         {
             capsuleMap = SetupCapsuleMap();
@@ -157,8 +175,7 @@ namespace AIIG.Model.StateBehaviours
         }
 
 
-
-        /*Convenience*/
+        /*Convenience methods*/
 
         private void AddNodeCapsuleToClosedList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
         {

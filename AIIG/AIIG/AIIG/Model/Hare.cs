@@ -14,14 +14,14 @@ namespace AIIG.Model
 		public Hare(Texture2D startTexture)
 			: base(startTexture, State.Wandering)
 		{
-			randomNode();
+			GoToRandomEmptyNode();
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			if (Node == MainModel.Instance.Cow.Node)
 			{
-				randomNode();
+				GoToRandomEmptyNode();
 			}
 		}
 	}

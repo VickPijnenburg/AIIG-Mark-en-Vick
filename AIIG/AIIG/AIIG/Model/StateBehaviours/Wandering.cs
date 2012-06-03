@@ -8,6 +8,11 @@ namespace AIIG.Model.StateBehaviours
 {
 	class Wandering : StateBehaviour
 	{
+
+        //Constants
+
+        private const int INITIAL_COUNT = 4;
+
 		//Fields
 
 		private int count;
@@ -18,7 +23,7 @@ namespace AIIG.Model.StateBehaviours
 		public Wandering(Entity host)
 			: base(Entity.State.Wandering, host)
 		{
-			count = 4;
+			count = INITIAL_COUNT;
 		}
 
 
@@ -29,6 +34,11 @@ namespace AIIG.Model.StateBehaviours
 			MoveToRandomAttachedNode();
 			updateCount();
 		}
+
+        public override void Reset()
+        {
+            count = INITIAL_COUNT;
+        }
 
 		private void MoveToRandomAttachedNode()
 		{

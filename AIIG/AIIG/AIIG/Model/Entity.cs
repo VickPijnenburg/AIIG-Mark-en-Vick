@@ -101,32 +101,28 @@ namespace AIIG.Model
             this.behaviour[CurrentState].Update(gameTime);
         }
 
-		public void randomNode()
+		public void GoToRandomEmptyNode()
 		{
-
 			Node newNode = null;
 			bool foundOne = false;
 
-			while (foundOne != true)
+			while (!foundOne)
 			{
 				int randomNumber = random.Next(0, MainModel.Instance.Area.AllNodes.Count - 1);
 				newNode = MainModel.Instance.Area.AllNodes.ElementAt(randomNumber);
-				bool wrongNode = false;
 
+                foundOne = true;
 				foreach (Entity entity in MainModel.Instance.Entities)
 				{
 					if (newNode == entity.Node)
 					{
-						wrongNode = true;
+                        foundOne = false;
 						break;
 					}
 				}
-				if (!wrongNode)
-				{
-					foundOne = true;
-					Node = newNode;
-				}
 			}
+
+            this.Node = newNode;
 		}
 
         public void AddBehaviour(StateBehaviour behaviour)
@@ -134,9 +130,14 @@ namespace AIIG.Model
             this.behaviour[behaviour.State] = behaviour;
         }
 
-		public void Draw(GameTime gameTime)
+		public virtual void Draw(GameTime gameTime)
 		{
-			MainView.Instance.SpriteBatch.Draw(Texture, (Node.Position - Origin), Color.White);
+			MainView.Instance.SpriteBatch.Draw(Texture, (Node.Position - Origin), this.ColorToUse);
 		}
+
+        protected virtual Color ColorToUse
+        {
+            get { return Color.White; }
+        }
 	}
 }

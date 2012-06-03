@@ -32,6 +32,7 @@ namespace AIIG.Model
             Edge edge8 = new Edge(area, node2, node3, 2);
             Edge edge9 = new Edge(area, node6, node3, 3);
             Edge edge10 = new Edge(area, node6, node4, 1);
+            Edge edge11 = new Edge(area, node0, node6, 3);
 
             return area;
         }

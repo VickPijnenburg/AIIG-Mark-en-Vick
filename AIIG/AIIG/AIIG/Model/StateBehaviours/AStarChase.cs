@@ -11,16 +11,18 @@ namespace AIIG.Model.StateBehaviours
 
         //Fields
 
-        LinkedList<Node> currentRoute;
-
+        private LinkedList<Node> currentRoute;
+        private Entity target;
 
 
         //Constructors
 
-        public AStarChase(Entity host)
-            : base(Entity.State.Chasing, host)
+        public AStarChase(Entity.State state, Entity host, Entity target)
+            : base(state, host)
         {
-            currentRoute = new LinkedList<Node>();
+            this.target = target;
+
+            this.currentRoute = new LinkedList<Node>();
         }
 
 
@@ -31,7 +33,7 @@ namespace AIIG.Model.StateBehaviours
         {
             if (this.currentRoute.Count == 0)
             {
-                AStarNodeCapsule endAStarNodeCapsule = FindCapsuleWithAStar(Host.Node, MainModel.Instance.Hare.Node);
+                AStarNodeCapsule endAStarNodeCapsule = FindCapsuleWithAStar();
                 this.currentRoute = GetRouteFromEndAStarNodeCapsule(endAStarNodeCapsule);
             }
             if (this.currentRoute.Count > 0)
@@ -41,17 +43,17 @@ namespace AIIG.Model.StateBehaviours
             }
         }
 
-        private AStarNodeCapsule FindCapsuleWithAStar(Node startPoint, Node endPoint)
+        private AStarNodeCapsule FindCapsuleWithAStar()
         {
             Dictionary<int, AStarNodeCapsule> capsuleMap;
             SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> closedList;
             SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> openList;
-            SetupAStarStart(out capsuleMap, out closedList, out openList, startPoint);
+            SetupAStarStart(out capsuleMap, out closedList, out openList, Host.Node);
 
             bool failed = false;
             while (!failed)
             {
-                 if (closedList.Last().Value.Last().Value.Node == endPoint)
+                 if (closedList.Last().Value.Last().Value.Node == this.target.Node)
                 {
                     return closedList.Last().Value.Last().Value;
                 }
@@ -87,7 +89,7 @@ namespace AIIG.Model.StateBehaviours
         /*Setup methods*/
         private void SetupAStarStart(out Dictionary<int, AStarNodeCapsule> capsuleMap, out SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> closedList, out SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> openList, Node startPoint)
         {
-            capsuleMap = SetupCapsuleMap(MainModel.Instance.Hare.Node);
+            capsuleMap = SetupCapsuleMap();
 
             closedList = new SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>>();
             openList = new SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>>();
@@ -96,13 +98,13 @@ namespace AIIG.Model.StateBehaviours
             AddNodeCapsuleToClosedList(closedList, capsuleMap[startPoint.ID]);
         }
 
-        private Dictionary<int, AStarNodeCapsule> SetupCapsuleMap(Node endPoint)
+        private Dictionary<int, AStarNodeCapsule> SetupCapsuleMap()
         {
             Dictionary<int, AStarNodeCapsule> capsuleMap = new Dictionary<int, AStarNodeCapsule>();
 
             foreach (Node node in MainModel.Instance.Area.AllNodes)
             {
-                capsuleMap.Add(node.ID, new AStarNodeCapsule(node, endPoint));
+                capsuleMap.Add(node.ID, new AStarNodeCapsule(node, this.target.Node));
             }
 
             return capsuleMap;

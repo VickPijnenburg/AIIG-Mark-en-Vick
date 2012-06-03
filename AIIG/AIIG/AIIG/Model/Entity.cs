@@ -17,6 +17,7 @@ namespace AIIG.Model
         {
             Idle,
             Wandering,
+            LookingForPill,
             Fleeing,
             Chasing,
             Evading,
@@ -83,6 +84,7 @@ namespace AIIG.Model
             get { return node; }
             set { node = value; }
         }
+
 
 
         //Methods

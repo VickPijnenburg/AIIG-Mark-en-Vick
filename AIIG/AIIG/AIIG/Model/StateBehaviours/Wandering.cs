@@ -8,13 +8,21 @@ namespace AIIG.Model.StateBehaviours
 {
 	class Wandering : StateBehaviour
 	{
+		//Fields
+
 		private int count;
+
+
+		//Constructors
 
 		public Wandering(Entity host)
 			: base(Entity.State.Wandering, host)
 		{
 			count = 4;
 		}
+
+
+		//Methods
 
 		public override void Update(GameTime gameTime)
 		{

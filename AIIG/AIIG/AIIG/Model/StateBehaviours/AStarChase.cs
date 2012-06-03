@@ -87,22 +87,22 @@ namespace AIIG.Model.StateBehaviours
         /*Setup methods*/
         private void SetupAStarStart(out Dictionary<int, AStarNodeCapsule> capsuleMap, out SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> closedList, out SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> openList, Node startPoint)
         {
-            capsuleMap = SetupCapsuleMap();
+            capsuleMap = SetupCapsuleMap(MainModel.Instance.Hare.Node);
 
             closedList = new SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>>();
             openList = new SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>>();
 
             capsuleMap[startPoint.ID].ShortestDistance = 0;
-            AddNodeCapsuleToList(closedList, capsuleMap[startPoint.ID]);
+            AddNodeCapsuleToClosedList(closedList, capsuleMap[startPoint.ID]);
         }
 
-        private Dictionary<int, AStarNodeCapsule> SetupCapsuleMap()
+        private Dictionary<int, AStarNodeCapsule> SetupCapsuleMap(Node endPoint)
         {
             Dictionary<int, AStarNodeCapsule> capsuleMap = new Dictionary<int, AStarNodeCapsule>();
 
             foreach (Node node in MainModel.Instance.Area.AllNodes)
             {
-                capsuleMap.Add(node.ID, new AStarNodeCapsule(node));
+                capsuleMap.Add(node.ID, new AStarNodeCapsule(node, endPoint));
             }
 
             return capsuleMap;
@@ -118,12 +118,10 @@ namespace AIIG.Model.StateBehaviours
             if (openList.Count > 0)
             {
                 AStarNodeCapsule newClosedNode = openList.First().Value.First().Value;
-                RemoveNodeCapsuleFromList(openList, newClosedNode);
-                AddNodeCapsuleToList(closedList, newClosedNode);
+                RemoveNodeCapsuleFromOpenList(openList, newClosedNode);
+                AddNodeCapsuleToClosedList(closedList, newClosedNode);
             }
         }
-
-
 
         private void ApplyShortestDistanceToAdjacentsOfNewAddition(Dictionary<int, AStarNodeCapsule> capsuleMap, SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> closedList, SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> openList)
         {
@@ -137,14 +135,14 @@ namespace AIIG.Model.StateBehaviours
                 {
                     adjacent.ShortestDistance = possibleNewShortestDistance;
                     adjacent.PreviousRouteNode = newAddition;
-                    AddNodeCapsuleToList(openList, adjacent);
+                    AddNodeCapsuleToOpenList(openList, adjacent);
                 }
                 else if ((int)adjacent.ShortestDistance > possibleNewShortestDistance)
                 {
-                    RemoveNodeCapsuleFromList(openList, adjacent);
+                    RemoveNodeCapsuleFromOpenList(openList, adjacent);
                     adjacent.ShortestDistance = possibleNewShortestDistance;
                     adjacent.PreviousRouteNode = newAddition;
-                    AddNodeCapsuleToList(openList, adjacent);
+                    AddNodeCapsuleToOpenList(openList, adjacent);
                 }
                 
             }
@@ -154,7 +152,7 @@ namespace AIIG.Model.StateBehaviours
 
         /*Convenience*/
 
-        private void AddNodeCapsuleToList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
+        private void AddNodeCapsuleToClosedList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
         {
             if (capsule.ShortestDistance != null)
             {
@@ -167,12 +165,31 @@ namespace AIIG.Model.StateBehaviours
             }
         }
 
-        private void RemoveNodeCapsuleFromList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
+        private void AddNodeCapsuleToOpenList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
+        {
+            int distanceToEnd = capsule.Priority;
+            if (!list.ContainsKey(distanceToEnd))
+            {
+                list[distanceToEnd] = new SortedDictionary<int, AStarNodeCapsule>();
+            }
+            list[distanceToEnd][capsule.Node.ID] = capsule;
+        }
+
+        private void RemoveNodeCapsuleFromClosedList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
         {
             list[(int)capsule.ShortestDistance].Remove(capsule.Node.ID);
             if (list[(int)capsule.ShortestDistance].Count == 0)
             {
                 list.Remove((int)capsule.ShortestDistance);
+            }
+        }
+
+        private void RemoveNodeCapsuleFromOpenList(SortedDictionary<int, SortedDictionary<int, AStarNodeCapsule>> list, AStarNodeCapsule capsule)
+        {
+            list[(int)capsule.Priority].Remove(capsule.Node.ID);
+            if (list[(int)capsule.Priority].Count == 0)
+            {
+                list.Remove(capsule.Priority);
             }
         }
 

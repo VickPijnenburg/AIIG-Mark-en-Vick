@@ -48,5 +48,10 @@ namespace AIIG.Model
         {
             //Override this.
         }
+
+        public virtual void Reset()
+        {
+            //Override this.
+        }
     }
 }

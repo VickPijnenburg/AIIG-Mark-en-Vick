@@ -49,8 +49,9 @@ namespace AIIG.Model
 			entities.Add(cow);
 
             new Wandering(cow);
-            new AStarChase(Entity.State.Chasing, cow, hare);
-            new AStarChase(Entity.State.LookingForPill, cow, pill);
+            new AStarChase(Entity.State.LookingForPill, cow, pill, Entity.State.Chasing);
+            new AStarChase(Entity.State.Chasing, cow, hare, Entity.State.Wandering);
+            
             
             cow.CurrentState = Entity.State.Wandering;
         }

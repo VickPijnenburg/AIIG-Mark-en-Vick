@@ -55,7 +55,14 @@ namespace AIIG.Model
         public State CurrentState
         {
             get { return currentState; }
-            set { currentState = value; }
+            set
+            {
+                if (this.behaviour.ContainsKey(this.CurrentState))
+                {
+                    behaviour[CurrentState].Reset();
+                }
+                currentState = value;
+            }
         }
 
 		public Texture2D Texture

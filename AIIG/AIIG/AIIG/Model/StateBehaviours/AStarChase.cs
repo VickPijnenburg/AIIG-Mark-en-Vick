@@ -13,14 +13,16 @@ namespace AIIG.Model.StateBehaviours
 
         private LinkedList<Node> currentRoute;
         private Entity target;
+        private Entity.State nextState;
 
 
         //Constructors
 
-        public AStarChase(Entity.State state, Entity host, Entity target)
+        public AStarChase(Entity.State state, Entity host, Entity target, Entity.State nextState)
             : base(state, host)
         {
             this.target = target;
+            this.nextState = nextState;
 
             this.currentRoute = new LinkedList<Node>();
         }
@@ -40,6 +42,10 @@ namespace AIIG.Model.StateBehaviours
             {
                 Host.Node = currentRoute.First.Value;
                 currentRoute.RemoveFirst();
+            }
+            if (Host.Node == this.target.Node)
+            {
+                Host.CurrentState = this.nextState;
             }
         }
 

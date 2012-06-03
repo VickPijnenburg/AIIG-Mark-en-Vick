@@ -14,7 +14,7 @@ namespace AIIG.View
         //Constants
 
         private static readonly Rectangle VIEW_RECT = new Rectangle(0, 0, 800, 600);
-
+        private static SpriteFont font;
 
 
         //Fields
@@ -32,6 +32,7 @@ namespace AIIG.View
             instance = this;
 
             spriteBatch = new SpriteBatch(MainGame.Instance.GraphicsDevice);
+            font = MainGame.Instance.Content.Load<SpriteFont>("GameAssets/gameFont");
         }
 
 
@@ -48,6 +49,11 @@ namespace AIIG.View
                 }
                 return instance;
             }
+        }
+
+        public static SpriteFont Font
+        {
+            get { return font; }
         }
 
 

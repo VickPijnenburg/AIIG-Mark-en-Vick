@@ -10,6 +10,13 @@ namespace AIIG.Model
 {
     public class Node
     {
+
+        //Constants
+
+        private static readonly Vector2 TEXT_ORIGIN = new Vector2(7, 17);
+
+
+
         //Fields
 
         private static int nextID = 0;
@@ -102,6 +109,7 @@ namespace AIIG.Model
         public void Draw(GameTime gameTime)
         {
             MainView.Instance.SpriteBatch.Draw(texture, (Position - Origin), Color.White);
+            MainView.Instance.SpriteBatch.DrawString(MainView.Font, this.ID.ToString(), this.Position, Color.White, 0, TEXT_ORIGIN, 0.5f, SpriteEffects.None, 0);
         }
 
 

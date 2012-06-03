@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using AIIG4.Model;
 
 namespace AIIG4.View
 {
@@ -42,5 +44,20 @@ namespace AIIG4.View
 				return instance;
 			}
 		}
+
+
+
+        //////////////////////////////
+        //Methods//
+        //////////////////////////////
+
+        public void Draw(GameTime gameTime)
+        {
+            MainGame.Instance.SpriteBatch.Begin();
+
+            MainModel.Instance.Cow.Draw(gameTime);
+
+            MainGame.Instance.SpriteBatch.End();
+        }
 	}
 }

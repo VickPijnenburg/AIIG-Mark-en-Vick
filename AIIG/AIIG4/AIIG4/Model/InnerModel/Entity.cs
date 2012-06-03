@@ -17,7 +17,13 @@ namespace AIIG4.Model.InnerModel
 
         private static readonly Vector2 INITIAL_STEERING_FORCE = Vector2.Zero;
 
+        private const float DEFAULT_MASS = 10;
+        private const float DEFAULT_MAX_SPEED = 1;
+        private const float DEFAULT_MAX_FORCE = 100;
+        private const float DEFAULT_MAX_TURN_RATE = 100;
 
+        private static readonly Vector2 INITIAL_HEADING = new Vector2(0, -1);
+        private static readonly Vector2 INITIAL_SIDE = new Vector2(-1, 0);
 
         //////////////////////////////
         //Fields//
@@ -32,7 +38,7 @@ namespace AIIG4.Model.InnerModel
         private float maxForce;
         private float maxTurnRate;
 
-        private Vector2 Position;
+        private Vector2 position;
         private Vector2 velocity;
         private Vector2 heading;
         private Vector2 side;
@@ -50,6 +56,14 @@ namespace AIIG4.Model.InnerModel
 
             this.behaviours = new LinkedList<Behaviour>();
 
+            this.mass = DEFAULT_MASS;
+            this.maxSpeed = DEFAULT_MAX_SPEED;
+            this.maxForce = DEFAULT_MAX_FORCE;
+            this.maxTurnRate = DEFAULT_MAX_TURN_RATE;
+
+            this.heading = INITIAL_HEADING;
+            this.side = INITIAL_SIDE;
+
             this.currentSteeringForce = INITIAL_STEERING_FORCE;
 		}
 
@@ -59,11 +73,49 @@ namespace AIIG4.Model.InnerModel
         //Properties//
         //////////////////////////////
 
+        public Vector2 Position
+        {
+            get { return this.position; }
+            set { this.position = value; }
+        }
+
+        public Vector2 Heading
+        {
+            get { return this.heading; }
+        }
+
+        public Vector2 Side
+        {
+            get { return this.side; }
+        }
+
+        public float Rotation
+        {
+            get
+            {
+                return (float)Math.Atan2(this.Heading.X, -this.Heading.Y);
+            }
+        }
+
+        public Vector2 Origin
+        {
+            get { return new Vector2((this.texture.Width * 0.5f), (this.texture.Height * 0.5f)); }
+        }
+
+
 
         //////////////////////////////
         //Methods//
         //////////////////////////////
 
+
+        /*Behaviour addition methods*/
+
+        public void AddBehaviour(Behaviour behaviour)
+        {
+            this.behaviours.AddLast(behaviour);
+            behaviour.Host = this;
+        }
 
         /*Update methods*/
 
@@ -74,7 +126,7 @@ namespace AIIG4.Model.InnerModel
             Move(gameTime);
         }
 
-        public void RefreshSteeringForce()
+        private void RefreshSteeringForce()
         {
             this.currentSteeringForce = INITIAL_STEERING_FORCE;
         }
@@ -90,9 +142,15 @@ namespace AIIG4.Model.InnerModel
 
         /*Movement methods*/
 
+        public void ApplySteeringForce(Vector2 steeringForce)
+        {
+            this.currentSteeringForce += steeringForce;
+        }
+
         private void Move(GameTime gameTime)
         {
             UpdateVelocity(gameTime);
+
             if (this.velocity.LengthSquared() > 0.000000001f)
             {
                 UpdateHeading(gameTime);
@@ -102,13 +160,22 @@ namespace AIIG4.Model.InnerModel
 
         private void UpdateVelocity(GameTime gameTime)
         {
+            ApplyFrictionToVelocity(gameTime);
+
             Vector2 acceleration = this.currentSteeringForce / this.mass;
             this.velocity += acceleration * gameTime.ElapsedGameTime.Milliseconds;
+            
+
             if (TooFast())
             {
                 this.velocity.Normalize();
                 this.velocity *= maxSpeed;
             }
+        }
+
+        private void ApplyFrictionToVelocity(GameTime gameTime)
+        {
+            ApplySteeringForce(-this.velocity * 0.05f);
         }
 
         private void UpdateHeading(GameTime gameTime)
@@ -125,6 +192,29 @@ namespace AIIG4.Model.InnerModel
         private void UpdatePosition(GameTime gameTime)
         {
             this.Position += this.velocity * gameTime.ElapsedGameTime.Milliseconds;
+
+            WrapAround();
+        }
+
+        private void WrapAround()
+        {
+            if ((this.position.X >= 500.0f) || (this.position.X < 0.0f))
+            {
+                this.position.X %= 500.0f;
+            }
+            if(this.position.X < 0.0f)
+            {
+                this.position.X += 500.0f;
+            }
+
+            if ((this.position.Y >= 500.0f) || (this.position.Y < 0.0f))
+            {
+                this.position.Y %= 500.0f;
+            }
+            if (this.position.Y < 0.0f)
+            {
+                this.position.Y += 500.0f;
+            }
         }
 
 
@@ -137,5 +227,12 @@ namespace AIIG4.Model.InnerModel
             return (this.velocity.LengthSquared() > maxSpeedSquared);
         }
 
+
+        /*Draw methods*/
+
+        public virtual void Draw(GameTime gameTime)
+        {
+            MainGame.Instance.SpriteBatch.Draw(this.texture, this.Position, null, Color.White, this.Rotation, this.Origin, 1.0f, SpriteEffects.None, 0);
+        }
 	}
 }

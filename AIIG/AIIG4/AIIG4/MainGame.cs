@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using AIIG4.View;
+using AIIG4.Model;
 
 namespace AIIG4
 {
@@ -58,6 +60,11 @@ namespace AIIG4
             }
         }
 
+        public SpriteBatch SpriteBatch
+        {
+            get { return this.spriteBatch; }
+        }
+
 
 
         //////////////////////////////
@@ -66,6 +73,10 @@ namespace AIIG4
 
 		protected override void Initialize()
 		{
+            graphics.PreferredBackBufferWidth = 500;
+            graphics.PreferredBackBufferHeight = 500;
+            graphics.ApplyChanges();
+
 			base.Initialize();
 		}
 
@@ -85,10 +96,12 @@ namespace AIIG4
 		protected override void Update(GameTime gameTime)
 		{
 			// Allows the game to exit
-			if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-				this.Exit();
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                this.Exit();
+            }
 
-			// TODO: Add your update logic here
+            MainModel.Instance.Update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -97,7 +110,7 @@ namespace AIIG4
 		{
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 
-			// TODO: Add your drawing code here
+            MainView.Instance.Draw(gameTime);
 
 			base.Draw(gameTime);
 		}

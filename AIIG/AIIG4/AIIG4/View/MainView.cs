@@ -42,4 +42,5 @@ namespace AIIG4.View
                 return instance;
             }
         }
+    }
 }

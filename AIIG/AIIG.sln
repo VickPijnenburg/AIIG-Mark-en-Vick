@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIIG", "AIIG\AIIG\AIIG.csproj", "{BC930AD2-0C04-4905-8330-82C926865348}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "AIIGContent", "AIIG\AIIGContent\AIIGContent.contentproj", "{26C34411-B55D-4F6F-8834-82F84C7EDAD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIIGContent", "AIIG\AIIGContent\AIIGContent.contentproj", "{26C34411-B55D-4F6F-8834-82F84C7EDAD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIIG4", "AIIG4\AIIG4\AIIG4.csproj", "{F7A487C6-75BE-480D-A102-355CE54C6F7F}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "AIIG4Content", "AIIG4\AIIG4Content\AIIG4Content.contentproj", "{FBE572A3-0EFC-478D-8E6D-28248D0B743F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +21,12 @@ Global
 		{BC930AD2-0C04-4905-8330-82C926865348}.Release|x86.Build.0 = Release|x86
 		{26C34411-B55D-4F6F-8834-82F84C7EDAD1}.Debug|x86.ActiveCfg = Debug|x86
 		{26C34411-B55D-4F6F-8834-82F84C7EDAD1}.Release|x86.ActiveCfg = Release|x86
+		{F7A487C6-75BE-480D-A102-355CE54C6F7F}.Debug|x86.ActiveCfg = Debug|x86
+		{F7A487C6-75BE-480D-A102-355CE54C6F7F}.Debug|x86.Build.0 = Debug|x86
+		{F7A487C6-75BE-480D-A102-355CE54C6F7F}.Release|x86.ActiveCfg = Release|x86
+		{F7A487C6-75BE-480D-A102-355CE54C6F7F}.Release|x86.Build.0 = Release|x86
+		{FBE572A3-0EFC-478D-8E6D-28248D0B743F}.Debug|x86.ActiveCfg = Debug|x86
+		{FBE572A3-0EFC-478D-8E6D-28248D0B743F}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

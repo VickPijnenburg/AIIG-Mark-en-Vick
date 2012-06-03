@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,16 +8,16 @@ using AIIG.Model.StateBehaviours;
 
 namespace AIIG.Model
 {
-    class MainModel
-    {
+	class MainModel
+	{
 
-        //Fields
+		//Fields
 
-        private static MainModel instance;
+		private static MainModel instance;
 
-        private EventManager eventManagement;
+		private EventManager eventManagement;
 
-        private Area area;
+		private Area area;
 
 		private List<Entity> entities;
 
@@ -27,60 +27,86 @@ namespace AIIG.Model
 
 
 
-        //Constructors
+		//Constructors
 
-        private MainModel()
-        {
-            instance = this;
+		private MainModel()
+		{
+			instance = this;
 
-            eventManagement = new EventManager();
-
+			eventManagement = new EventManager();
 			area = AreaFactory.CreateArea();
 
-			entities = new List<Entity>();
+			CreateEntities();
 
-			pill = new Pill(MainGame.Instance.Content.Load<Texture2D>("GameAssets/pill"));
+			SetUpPillBehaviour();
+			SetUpHareBehaviour();
+			SetUpCowBehaviour();
+		}
+
+		private void CreateEntities()
+		{
+			this.entities = new List<Entity>();
+
+			this.pill = new Pill(MainGame.Instance.Content.Load<Texture2D>("GameAssets/pill"));
 			entities.Add(pill);
 
-			hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
+			this.hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
 			entities.Add(hare);
 
-			cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
+			this.cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
 			entities.Add(cow);
+		}
 
-            new Wandering(cow);
-            new AStarChase(Entity.State.LookingForPill, cow, pill, Entity.State.Chasing);
-            new AStarChase(Entity.State.Chasing, cow, hare, Entity.State.Wandering);
-            
-            
-            cow.CurrentState = Entity.State.Wandering;
-        }
+		private void SetUpPillBehaviour()
+		{
+			new IdleTillCow(this.Pill);
+			new FleeToEmptyNode(this.Pill);
 
-        
-        //Properties
+			this.Pill.CurrentState = Entity.State.Idle;
+		}
 
-        public static MainModel Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    new MainModel();
-                }
+		private void SetUpHareBehaviour()
+		{
+			new IdleTillCow(this.Hare);
+			new FleeToEmptyNode(this.Hare);
 
-                return instance;
-            }
-        }
+			this.Hare.CurrentState = Entity.State.Idle;
+		}
 
-        public EventManager EventManagement
-        {
-            get { return eventManagement; }
-        }
+		private void SetUpCowBehaviour()
+		{
+			new Wandering(this.Cow);
+			new AStarChase(Entity.State.LookingForPill, this.Cow, this.Pill, Entity.State.Chasing);
+			new AStarChase(Entity.State.Chasing, this.Cow, this.Hare, Entity.State.Wandering);
 
-        public Area Area
-        {
-            get { return area; }
-        }
+			this.Cow.CurrentState = Entity.State.Wandering;
+		}
+
+
+		//Properties
+
+		public static MainModel Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					new MainModel();
+				}
+
+				return instance;
+			}
+		}
+
+		public EventManager EventManagement
+		{
+			get { return eventManagement; }
+		}
+
+		public Area Area
+		{
+			get { return area; }
+		}
 
 		public List<Entity> Entities
 		{
@@ -105,10 +131,11 @@ namespace AIIG.Model
 
 		//Methods
 
-        public void Update(GameTime gameTime)
-        {
-            Cow.Update(gameTime);
+		public void Update(GameTime gameTime)
+		{
+			Cow.Update(gameTime);
 			Hare.Update(gameTime);
-        }
-    }
+			Pill.Update(gameTime);
+		}
+	}
 }

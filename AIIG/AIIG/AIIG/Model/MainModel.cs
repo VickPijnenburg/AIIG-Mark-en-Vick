@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using AIIG.Model.StateBehaviours;
 
 namespace AIIG.Model
 {
@@ -32,7 +33,10 @@ namespace AIIG.Model
 
 			area = AreaFactory.CreateArea();
 			hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
+
 			cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
+            new AStarChase(cow);
+            cow.CurrentState = Entity.State.Chasing;
         }
 
         

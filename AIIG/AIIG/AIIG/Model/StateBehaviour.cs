@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace AIIG.Model
 {
-    public class StateBehaviour
+    public abstract class StateBehaviour
     {
 
         //Fields

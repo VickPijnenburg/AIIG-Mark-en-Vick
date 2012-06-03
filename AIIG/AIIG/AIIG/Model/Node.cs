@@ -12,6 +12,10 @@ namespace AIIG.Model
     {
         //Fields
 
+        private static int nextID = 0;
+
+        private int nodeID;
+
         private Vector2 position;
         private LinkedList<Edge> edges;
         private Texture2D texture;
@@ -22,6 +26,8 @@ namespace AIIG.Model
 
         public Node(Area area, Vector2 position)
         {
+            this.nodeID = nextID++;
+
             area.AllNodes.AddLast(this);
             this.position = position;
             edges = new LinkedList<Edge>();
@@ -32,6 +38,11 @@ namespace AIIG.Model
 
 
         //Properties
+
+        public int ID
+        {
+            get { return nodeID; }
+        }
 
         public Vector2 Position
         {

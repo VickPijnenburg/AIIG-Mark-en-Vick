@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using AIIG.Model.StateBehaviours;
 
 namespace AIIG.Model
 {
 	public class Cow : Entity
 	{
+
 		//Constructors
 
 		public Cow(Texture2D startTexture)
@@ -21,12 +23,11 @@ namespace AIIG.Model
 
         //Methods
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            if (MainModel.Instance.EventManagement.CowShouldMove
-                && Node.AttachedNodes.Count > 0)
+            if (MainModel.Instance.EventManagement.CowShouldMove)
             {
-                MoveToRandomAttachedNode();
+                base.Update(gameTime);
             }
         }
 

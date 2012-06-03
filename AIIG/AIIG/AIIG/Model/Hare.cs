@@ -17,7 +17,7 @@ namespace AIIG.Model
 			randomNode();
 		}
 
-		public void Update(GameTime gameTime)
+		public override void Update(GameTime gameTime)
 		{
 			if (Node == MainModel.Instance.Cow.Node)
 			{

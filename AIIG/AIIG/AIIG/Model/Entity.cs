@@ -86,6 +86,11 @@ namespace AIIG.Model
 
         //Methods
 
+        public virtual void Update(GameTime gameTime)
+        {
+            this.behaviour[CurrentState].Update(gameTime);
+        }
+
 		public void randomNode()
 		{
 

@@ -107,9 +107,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Cow.cs" />
-    <Compile Include="Model\Entity.cs" />
-    <Compile Include="Model\Hare.cs" />
+    <Compile Include="Model\InnerModel\Cow.cs" />
+    <Compile Include="Model\InnerModel\Entity.cs" />
+    <Compile Include="Model\InnerModel\Hare.cs" />
+    <Compile Include="Model\InnerModel\BehaviourClasses\Behaviour.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
@@ -147,9 +148,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\InnerModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\AIIG\AIIGContent\AIIGContent.contentproj">
       <Project>{26C34411-B55D-4F6F-8834-82F84C7EDAD1}</Project>

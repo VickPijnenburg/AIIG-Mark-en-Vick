@@ -100,9 +100,11 @@ namespace AIIG.View
         }
 
         private void DrawEntities(GameTime gameTime)
-        {
-            MainModel.Instance.Hare.Draw(gameTime);
-            MainModel.Instance.Cow.Draw(gameTime);
+		{
+			foreach(Entity entity in MainModel.Instance.Entities)
+			{
+				entity.Draw(gameTime);
+			}
         }
     }
 }

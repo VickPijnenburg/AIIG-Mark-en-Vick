@@ -33,6 +33,7 @@ namespace AIIG.Model
         private Texture2D texture;
 
 		private Node node;
+		Random random = new Random();
         
 
 
@@ -99,18 +100,19 @@ namespace AIIG.Model
 
 			while (foundOne != true)
 			{
-				Random random = new Random();
 				int randomNumber = random.Next(0, MainModel.Instance.Area.AllNodes.Count - 1);
 				newNode = MainModel.Instance.Area.AllNodes.ElementAt(randomNumber);
-				if (MainModel.Instance.Hare != null)
+				bool wrongNode = false;
+
+				foreach (Entity entity in MainModel.Instance.Entities)
 				{
-					if (newNode != MainModel.Instance.Hare.node)
+					if (newNode == entity.Node)
 					{
-						foundOne = true;
-						Node = newNode;
+						wrongNode = true;
+						break;
 					}
 				}
-				else
+				if (!wrongNode)
 				{
 					foundOne = true;
 					Node = newNode;

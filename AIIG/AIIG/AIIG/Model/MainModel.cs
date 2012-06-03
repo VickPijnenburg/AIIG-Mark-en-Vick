@@ -19,6 +19,9 @@ namespace AIIG.Model
 
         private Area area;
 
+		private List<Entity> entities;
+
+		private Pill pill;
 		private Hare hare;
 		private Cow cow;
 
@@ -32,9 +35,18 @@ namespace AIIG.Model
             eventManagement = new EventManager();
 
 			area = AreaFactory.CreateArea();
+
+			entities = new List<Entity>();
+
+			pill = new Pill(MainGame.Instance.Content.Load<Texture2D>("GameAssets/pill"));
+			entities.Add(pill);
+
 			hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
+			entities.Add(hare);
 
 			cow = new Cow(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
+			entities.Add(cow);
+
             new AStarChase(cow);
             cow.CurrentState = Entity.State.Chasing;
         }
@@ -65,6 +77,16 @@ namespace AIIG.Model
             get { return area; }
         }
 
+		public List<Entity> Entities
+		{
+			get { return entities; }
+		}
+
+		public Pill Pill
+		{
+			get { return pill; }
+		}
+
 		public Hare Hare
 		{
 			get { return hare; }
@@ -81,7 +103,7 @@ namespace AIIG.Model
         public void Update(GameTime gameTime)
         {
             Cow.Update(gameTime);
-            Hare.Update(gameTime);
+			Hare.Update(gameTime);
         }
     }
 }

@@ -30,17 +30,5 @@ namespace AIIG.Model
                 base.Update(gameTime);
             }
         }
-
-        private void MoveToRandomAttachedNode()
-        {
-            int targetNodeIndex = DetermineTargetNode();
-            Node = Node.AttachedNodes.ElementAt(targetNodeIndex);
-        }
-
-        private int DetermineTargetNode()
-        {
-            Random randomGenerator = new Random();
-            return randomGenerator.Next(Node.AttachedNodes.Count - 1);
-        }
 	}
 }

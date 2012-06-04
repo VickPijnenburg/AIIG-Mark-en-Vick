@@ -56,6 +56,7 @@ namespace AIIG4.View
             MainGame.Instance.SpriteBatch.Begin();
 
             MainModel.Instance.Cow.Draw(gameTime);
+            MainModel.Instance.Hare.Draw(gameTime);
 
             MainGame.Instance.SpriteBatch.End();
         }

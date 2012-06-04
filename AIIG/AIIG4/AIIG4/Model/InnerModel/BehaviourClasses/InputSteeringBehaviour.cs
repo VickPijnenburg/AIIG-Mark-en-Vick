@@ -11,7 +11,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
     {
 
         private const float FORCE = 0.1f;
-        private const float STEER_FORCE = 0.055f;
+        private const float STEER_FORCE = 0.2f;
 
         public InputSteeringBehaviour()
         {

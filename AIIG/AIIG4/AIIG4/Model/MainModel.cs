@@ -17,7 +17,10 @@ namespace AIIG4.Model
         //////////////////////////////
 
         private static MainModel instance;
+
         private Entity cow;
+        private Entity hare;
+
 
 
         //////////////////////////////
@@ -29,6 +32,7 @@ namespace AIIG4.Model
             instance = this;
 
             MakeCow();
+            MakeHare();
         }
 
 
@@ -54,6 +58,11 @@ namespace AIIG4.Model
             get { return this.cow; }
         }
 
+        public Entity Hare
+        {
+            get { return this.hare; }
+        }
+
 
         //////////////////////////////
         //Methods//
@@ -63,12 +72,25 @@ namespace AIIG4.Model
         {
             this.cow = new Entity(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
             this.cow.Position = new Vector2(200, 200);
+
             this.Cow.AddBehaviour(new InputSteeringBehaviour());
+            this.Cow.AddBehaviour(new ConstantPropulsion(0.07f));
+            this.Cow.AddBehaviour(new ChaseSteering(0.1f));
+        }
+
+        private void MakeHare()
+        {
+            this.hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
+            this.hare.Position = new Vector2(100, 300);
+
+            this.hare.AddBehaviour(new ConstantPropulsion(0.06f));
+            this.hare.AddBehaviour(new Wandering(0.1f));
         }
 
         public void Update(GameTime gameTime)
         {
             this.cow.Update(gameTime);
+            this.hare.Update(gameTime);
         }
     }
 }

@@ -18,5 +18,11 @@ namespace AIIG4.Model.InnerModel
 		{
 
 		}
+
+
+        protected override float RotationToUse
+        {
+            get { return (base.RotationToUse + (float)Math.PI / 2); }
+        }
 	}
 }

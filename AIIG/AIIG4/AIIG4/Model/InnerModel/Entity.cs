@@ -17,13 +17,15 @@ namespace AIIG4.Model.InnerModel
 
         private static readonly Vector2 INITIAL_STEERING_FORCE = Vector2.Zero;
 
-        private const float DEFAULT_MASS = 10;
-        private const float DEFAULT_MAX_SPEED = 1;
+        private const float DEFAULT_MASS = 50;
+        private const float DEFAULT_MAX_SPEED = 100.0f;
         private const float DEFAULT_MAX_FORCE = 100;
         private const float DEFAULT_MAX_TURN_RATE = 100;
 
         private static readonly Vector2 INITIAL_HEADING = new Vector2(0, -1);
         private static readonly Vector2 INITIAL_SIDE = new Vector2(-1, 0);
+
+
 
         //////////////////////////////
         //Fields//
@@ -89,7 +91,7 @@ namespace AIIG4.Model.InnerModel
             get { return this.side; }
         }
 
-        public float Rotation
+        protected virtual float RotationToUse
         {
             get
             {
@@ -175,7 +177,7 @@ namespace AIIG4.Model.InnerModel
 
         private void ApplyFrictionToVelocity(GameTime gameTime)
         {
-            ApplySteeringForce(-this.velocity * 0.05f);
+            ApplySteeringForce(-this.velocity * 0.3f);
         }
 
         private void UpdateHeading(GameTime gameTime)
@@ -198,22 +200,22 @@ namespace AIIG4.Model.InnerModel
 
         private void WrapAround()
         {
-            if ((this.position.X >= 500.0f) || (this.position.X < 0.0f))
+            if ((this.position.X >= MainGame.FIELD_WIDTH) || (this.position.X < 0.0f))
             {
-                this.position.X %= 500.0f;
+                this.position.X %= MainGame.FIELD_WIDTH;
             }
             if(this.position.X < 0.0f)
             {
-                this.position.X += 500.0f;
+                this.position.X += MainGame.FIELD_WIDTH;
             }
 
-            if ((this.position.Y >= 500.0f) || (this.position.Y < 0.0f))
+            if ((this.position.Y >= MainGame.FIELD_HEIGHT) || (this.position.Y < 0.0f))
             {
-                this.position.Y %= 500.0f;
+                this.position.Y %= MainGame.FIELD_HEIGHT;
             }
             if (this.position.Y < 0.0f)
             {
-                this.position.Y += 500.0f;
+                this.position.Y += MainGame.FIELD_HEIGHT;
             }
         }
 
@@ -232,7 +234,7 @@ namespace AIIG4.Model.InnerModel
 
         public virtual void Draw(GameTime gameTime)
         {
-            MainGame.Instance.SpriteBatch.Draw(this.texture, this.Position, null, Color.White, this.Rotation, this.Origin, 1.0f, SpriteEffects.None, 0);
+            MainGame.Instance.SpriteBatch.Draw(this.texture, this.Position, null, Color.White, this.RotationToUse, this.Origin, 1.0f, SpriteEffects.None, 0);
         }
 	}
 }

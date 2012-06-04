@@ -71,7 +71,7 @@ namespace AIIG4.Model
         private void MakeCow()
         {
             this.cow = new Entity(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
-            this.cow.Position = new Vector2(200, 200);
+            this.cow.Position = new Vector2(300, 200);
 
             this.Cow.AddBehaviour(new InputSteeringBehaviour());
             this.Cow.AddBehaviour(new ConstantPropulsion(0.07f));
@@ -81,10 +81,11 @@ namespace AIIG4.Model
         private void MakeHare()
         {
             this.hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
-            this.hare.Position = new Vector2(100, 300);
+            this.hare.Position = new Vector2(100, 500);
 
-            this.hare.AddBehaviour(new ConstantPropulsion(0.06f));
-            this.hare.AddBehaviour(new Wandering(0.1f));
+			this.hare.AddBehaviour(new ConstantPropulsion(0.06f));
+			this.hare.AddBehaviour(new Wandering(0.1f));
+			this.hare.AddBehaviour(new Flee(0.1f, 0.02f));
         }
 
         public void Update(GameTime gameTime)

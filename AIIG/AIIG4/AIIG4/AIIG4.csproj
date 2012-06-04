@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Model\InnerModel\BehaviourClasses\ChaseSteering.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\ConstantPropulsion.cs" />
+    <Compile Include="Model\InnerModel\BehaviourClasses\Flee.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\InputSteeringBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\Wandering.cs" />
     <Compile Include="Model\InnerModel\Cow.cs" />

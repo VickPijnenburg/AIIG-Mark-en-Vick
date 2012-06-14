@@ -45,6 +45,11 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
         //Methods//
         //////////////////////////////
 
+        public void RemoveFromGame()
+        {
+            this.host = null;
+        }
+
         public virtual void Update(GameTime gameTime)
         {
             //Override this

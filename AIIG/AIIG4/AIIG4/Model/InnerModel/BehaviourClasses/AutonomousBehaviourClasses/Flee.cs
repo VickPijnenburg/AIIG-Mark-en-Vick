@@ -11,16 +11,22 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 	{
 
 		//Fields
+
+        private Entity entityToFleeFrom;
+
 		private float steeringForce;
 		private float force;
         private float activeDistance;
 
 
+
         //Constructors
 
-        public Flee(AutonomousEntity host, float steeringForce, float force, float activeDistance)
+        public Flee(AutonomousEntity host, Entity entityToFleeFrom, float steeringForce, float force, float activeDistance)
             :base(host)
 		{
+            this.entityToFleeFrom = entityToFleeFrom;
+
 			this.steeringForce = steeringForce;
 			this.force = force;
             this.activeDistance = activeDistance;
@@ -33,7 +39,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             float squaredActiveDistance = activeDistance * activeDistance;
-            float squaredCowDistance = (Host.Position - MainModel.Instance.Cow.Position).LengthSquared();
+            float squaredCowDistance = (Host.Position - this.entityToFleeFrom.Position).LengthSquared();
 
             Console.WriteLine("AD: " + squaredActiveDistance + " CD: " + squaredCowDistance);
 
@@ -45,10 +51,10 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
         private void GoFlee()
         {
-            Vector2 cowPositionHeading = (MainModel.Instance.Cow.Position - Host.Position);
+            Vector2 relativeThreatPosition = (this.entityToFleeFrom.Position - Host.Position);
 
-            float dotProductSide = Vector2.Dot(Host.Side, cowPositionHeading);
-            float dotProductHeading = Vector2.Dot(Host.Heading, cowPositionHeading);
+            float dotProductSide = Vector2.Dot(Host.Side, relativeThreatPosition);
+            float dotProductHeading = Vector2.Dot(Host.Heading, relativeThreatPosition);
 
             if (dotProductSide < 0)
             {

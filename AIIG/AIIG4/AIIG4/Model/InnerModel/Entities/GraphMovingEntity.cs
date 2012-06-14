@@ -24,8 +24,8 @@ namespace AIIG4.Model.InnerModel.Entities
 
         //Constructors
 
-        public GraphMovingEntity(Texture2D startTexture, Node startNode)
-            : base(startTexture)
+        public GraphMovingEntity(EntityManager.EntityType entityType, Texture2D startTexture, Node startNode)
+            : base(entityType, startTexture)
         {
             this.positionNode = startNode;
 

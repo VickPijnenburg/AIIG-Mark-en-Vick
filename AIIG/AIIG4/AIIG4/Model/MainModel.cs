@@ -23,7 +23,8 @@ namespace AIIG4.Model
         private static MainModel instance;
 
         private Graph graph;
-        private AutonomousEntity cow;
+
+        private EntityManager entityManagement;
 
 
 
@@ -36,7 +37,9 @@ namespace AIIG4.Model
             instance = this;
 
             this.graph = GraphFactory.CreateGraph();
-            MakeCow();
+            this.entityManagement = new EntityManager();
+
+            EntityFactory.CreateStartEntities();
         }
 
 
@@ -62,9 +65,9 @@ namespace AIIG4.Model
             get { return this.graph; }
         }
 
-        public AutonomousEntity Cow
+        public EntityManager EntityManagement
         {
-            get { return this.cow; }
+            get { return this.entityManagement; }
         }
 
 
@@ -73,19 +76,9 @@ namespace AIIG4.Model
         //Methods//
         //////////////////////////////
 
-        private void MakeCow()
-        {
-            this.cow = new AutonomousEntity(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
-            this.cow.Position = new Vector2(300, 200);
-
-            new InputSteeringBehaviour(this.cow);
-            new ConstantPropulsion(this.cow, 0.07f);
-            new ChaseSteering(this.cow, 0.1f);
-        }
-
         public void Update(GameTime gameTime)
         {
-            this.cow.Update(gameTime);
+            this.EntityManagement.Update(gameTime);
         }
     }
 }

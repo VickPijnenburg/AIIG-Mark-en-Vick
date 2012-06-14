@@ -76,7 +76,7 @@ namespace AIIG4.View
             this.SpriteBatch.Begin();
 
             MainModel.Instance.Graph.Draw(gameTime);
-            MainModel.Instance.Cow.Draw(gameTime);
+            MainModel.Instance.EntityManagement.Draw(gameTime);
 
             this.SpriteBatch.End();
         }

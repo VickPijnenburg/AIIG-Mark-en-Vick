@@ -16,14 +16,23 @@ namespace AIIG4.Model.InnerModel.Entities
         //Constants//
         //////////////////////////////
 
+        private const bool INITIAL_IS_REMOVED = false;
+
         private static readonly Vector2 INITIAL_POSITION = Vector2.Zero;
         private static readonly Vector2 INITIAL_HEADING = new Vector2(0, -1);
         private static readonly Vector2 INITIAL_SIDE = new Vector2(-1, 0);
 
 
+
         //////////////////////////////
         //Fields//
         //////////////////////////////
+
+        private static int nextId = 0;
+
+        private int id;
+        private EntityManager.EntityType entityType;
+        private bool isRemoved;
 
         private Texture2D texture;
 
@@ -39,8 +48,12 @@ namespace AIIG4.Model.InnerModel.Entities
 		//Constructors//
 		//////////////////////////////
 
-		public Entity(Texture2D startTexture)
+		public Entity(EntityManager.EntityType entityType, Texture2D startTexture)
 		{
+            this.id = nextId++;
+            this.entityType = entityType;
+            this.isRemoved = INITIAL_IS_REMOVED;
+
             this.texture = startTexture;
 
             this.position = INITIAL_POSITION;
@@ -48,6 +61,8 @@ namespace AIIG4.Model.InnerModel.Entities
             this.side = INITIAL_SIDE;
 
             this.behaviours = new LinkedList<Behaviour>();
+
+            MainModel.Instance.EntityManagement.AddEntity(this);
 		}
 
 
@@ -55,6 +70,21 @@ namespace AIIG4.Model.InnerModel.Entities
         //////////////////////////////
         //Properties//
         //////////////////////////////
+
+        public int Id
+        {
+            get { return this.id; }
+        }
+
+        public EntityManager.EntityType EntityType
+        {
+            get { return this.entityType; }
+        }
+
+        public bool IsRemoved
+        {
+            get { return isRemoved; }
+        }
 
         public virtual Vector2 Position
         {
@@ -111,6 +141,14 @@ namespace AIIG4.Model.InnerModel.Entities
         //////////////////////////////
 
 
+        /*Removal methods*/
+
+        public void RemoveFromGame()
+        {
+            this.isRemoved = true;
+        }
+
+
         /*Behaviour addition methods*/
 
         public void AddBehaviour(Behaviour behaviour)
@@ -123,7 +161,11 @@ namespace AIIG4.Model.InnerModel.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            UpdateBehaviours(gameTime);
+            if (!IsRemoved)
+            {
+                UpdateBehaviours(gameTime);
+            }
+            RemoveBehavioursAsNeeded();
         }
 
         private void UpdateBehaviours(GameTime gameTime)
@@ -131,6 +173,18 @@ namespace AIIG4.Model.InnerModel.Entities
             foreach (Behaviour behaviour in this.behaviours)
             {
                 behaviour.Update(gameTime);
+            }
+        }
+
+        private void RemoveBehavioursAsNeeded()
+        {
+            if (IsRemoved)
+            {
+                foreach (Behaviour behaviour in this.behaviours)
+                {
+                    behaviour.RemoveFromGame();
+                }
+                this.behaviours.Clear();
             }
         }
 

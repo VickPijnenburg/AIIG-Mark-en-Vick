@@ -109,17 +109,18 @@
   <ItemGroup>
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\AutonomousBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\GraphMovingBehaviour.cs" />
+    <Compile Include="Model\InnerModel\BehaviourClasses\ShootingBehaviour.cs" />
     <Compile Include="Model\InnerModel\Entities\AutonomousEntity.cs" />
     <Compile Include="Model\InnerModel\Entities\GraphMovingEntity.cs" />
+    <Compile Include="Model\InnerModel\EntityManager.cs" />
+    <Compile Include="Model\InnerModel\Factories\EntityFactory.cs" />
     <Compile Include="Model\InnerModel\Factories\GraphFactory.cs" />
-    <Compile Include="Model\InnerModel\Flock.cs" />
     <Compile Include="Model\InnerModel\GraphClasses\Edge.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\ChaseSteering.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\ConstantPropulsion.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\Flee.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\InputSteeringBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\Wandering.cs" />
-    <Compile Include="Model\InnerModel\Entities\Cow.cs" />
     <Compile Include="Model\InnerModel\Entities\Entity.cs" />
     <Compile Include="Model\InnerModel\GraphClasses\Graph.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\Behaviour.cs" />

@@ -9,6 +9,9 @@ namespace AIIG4.Model.InnerModel.Factories
 {
     public abstract class GraphFactory
     {
+
+        //Methods
+
         public static Graph CreateGraph()
         {
             Graph graph = new Graph();

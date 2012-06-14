@@ -37,8 +37,8 @@ namespace AIIG4.Model.InnerModel.Entities
         //Constructors//
         //////////////////////////////
 
-        public AutonomousEntity(Texture2D startTexture)
-            : base(startTexture)
+        public AutonomousEntity(EntityManager.EntityType entityType, Texture2D startTexture)
+            : base(entityType, startTexture)
         {
             this.mass = DEFAULT_MASS;
             this.maxSpeed = DEFAULT_MAX_SPEED;

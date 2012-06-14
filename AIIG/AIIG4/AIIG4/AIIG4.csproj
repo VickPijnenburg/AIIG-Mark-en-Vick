@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Edge.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\ChaseSteering.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\ConstantPropulsion.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\Flee.cs" />
@@ -114,12 +115,17 @@
     <Compile Include="Model\InnerModel\BehaviourClasses\Wandering.cs" />
     <Compile Include="Model\InnerModel\Cow.cs" />
     <Compile Include="Model\InnerModel\Entity.cs" />
+    <Compile Include="Model\InnerModel\Graph.cs" />
     <Compile Include="Model\InnerModel\Hare.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\Behaviour.cs" />
+    <Compile Include="Model\InnerModel\Node.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="MainGame.cs" />
+    <Compile Include="View\FloatDeltaValues.cs" />
+    <Compile Include="View\IntDeltaValues.cs" />
+    <Compile Include="View\LineDrawingDevice.cs" />
     <Compile Include="View\MainView.cs" />
   </ItemGroup>
   <ItemGroup>

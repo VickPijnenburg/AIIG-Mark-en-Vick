@@ -4,11 +4,20 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using AIIG4.Model;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace AIIG4.View
 {
 	public class MainView
 	{
+
+        //////////////////////////////
+        //Constants//
+        //////////////////////////////
+
+        private static readonly Rectangle VIEW_RECT = new Rectangle(0, 0, 800, 600);
+        
+
 
 		//////////////////////////////
 		//Properties//
@@ -16,7 +25,11 @@ namespace AIIG4.View
 
 		private static MainView instance;
 
+        private static SpriteFont font;
 
+        private SpriteBatch spriteBatch;
+
+        
 
 		//////////////////////////////
 		//Constructors//
@@ -25,6 +38,10 @@ namespace AIIG4.View
 		private MainView()
 		{
 			instance = this;
+
+            font = MainGame.Instance.Content.Load<SpriteFont>("GameAssets/gameFont");
+
+            this.spriteBatch = new SpriteBatch(MainGame.Instance.GraphicsDevice);
 		}
 
 
@@ -45,6 +62,21 @@ namespace AIIG4.View
 			}
 		}
 
+        public SpriteBatch SpriteBatch
+        {
+            get { return this.spriteBatch; }
+        }
+
+        public Rectangle ViewRect
+        {
+            get { return VIEW_RECT; }
+        }
+
+        public static SpriteFont Font
+        {
+            get { return font; }
+        }
+
 
 
         //////////////////////////////
@@ -53,12 +85,12 @@ namespace AIIG4.View
 
         public void Draw(GameTime gameTime)
         {
-            MainGame.Instance.SpriteBatch.Begin();
+            this.SpriteBatch.Begin();
 
             MainModel.Instance.Cow.Draw(gameTime);
             MainModel.Instance.Hare.Draw(gameTime);
 
-            MainGame.Instance.SpriteBatch.End();
+            this.SpriteBatch.End();
         }
 	}
 }

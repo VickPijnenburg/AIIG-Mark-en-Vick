@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using AIIG4.Model.InnerModel.BehaviourClasses;
 using Microsoft.Xna.Framework;
+using AIIG4.View;
 
 namespace AIIG4.Model.InnerModel
 {
@@ -234,7 +235,7 @@ namespace AIIG4.Model.InnerModel
 
         public virtual void Draw(GameTime gameTime)
         {
-            MainGame.Instance.SpriteBatch.Draw(this.texture, this.Position, null, Color.White, this.RotationToUse, this.Origin, 1.0f, SpriteEffects.None, 0);
+            MainView.Instance.SpriteBatch.Draw(this.texture, this.Position, null, Color.White, this.RotationToUse, this.Origin, 1.0f, SpriteEffects.None, 0);
         }
 	}
 }

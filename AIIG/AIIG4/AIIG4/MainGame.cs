@@ -35,7 +35,6 @@ namespace AIIG4
         private static MainGame instance;
 
 		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
 
 
 
@@ -69,11 +68,6 @@ namespace AIIG4
             }
         }
 
-        public SpriteBatch SpriteBatch
-        {
-            get { return this.spriteBatch; }
-        }
-
 
 
         //////////////////////////////
@@ -92,7 +86,7 @@ namespace AIIG4
 		protected override void LoadContent()
 		{
 			// Create a new SpriteBatch, which can be used to draw textures.
-			spriteBatch = new SpriteBatch(GraphicsDevice);
+			
 
 			// TODO: use this.Content to load your game content here
 		}

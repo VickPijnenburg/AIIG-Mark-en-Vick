@@ -17,6 +17,7 @@ namespace AIIG.View
         private static SpriteFont font;
 
 
+
         //Fields
 
         private static MainView instance;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace AIIG4.Model.InnerModel
+namespace AIIG4.Model.InnerModel.GraphClasses
 {
     public class Graph
     {

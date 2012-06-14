@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using AIIG4.Model.InnerModel.Entities;
 
 namespace AIIG4.Model.InnerModel.BehaviourClasses
 {
@@ -12,7 +13,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
         //Fields
 
         private float force;
-
+        private Entity target;
 
 
         //Constructors
@@ -24,27 +25,40 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
 
 
+        //Properties
+
+        public Entity Target
+        {
+            get { return this.target; }
+            set { this.target = value; }
+        }
+
+
+
         //Methods
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            Vector2 harePositionHeading = (MainModel.Instance.Hare.Position - Host.Position);
-
-            float dotProductSide = Vector2.Dot(Host.Side, harePositionHeading);
-            float dotProductHeading = Vector2.Dot(Host.Heading, harePositionHeading);
-
-            if (dotProductSide < 0)
+            if (this.Target != null)
             {
-                if (dotProductHeading < 0 || dotProductSide < 40)
+                Vector2 harePositionHeading = (this.Target.Position - Host.Position);
+
+                float dotProductSide = Vector2.Dot(Host.Side, harePositionHeading);
+                float dotProductHeading = Vector2.Dot(Host.Heading, harePositionHeading);
+
+                if (dotProductSide < 0)
                 {
-                    Host.ApplySteeringForce(Host.Side * -force);
+                    if (dotProductHeading < 0 || dotProductSide < 40)
+                    {
+                        Host.ApplySteeringForce(Host.Side * -force);
+                    }
                 }
-            }
-            else
-            {
-                if (dotProductHeading < 0 || dotProductSide > 40)
+                else
                 {
-                    Host.ApplySteeringForce(Host.Side * force);
+                    if (dotProductHeading < 0 || dotProductSide > 40)
+                    {
+                        Host.ApplySteeringForce(Host.Side * force);
+                    }
                 }
             }
         }

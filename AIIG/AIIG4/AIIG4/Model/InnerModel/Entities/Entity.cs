@@ -7,7 +7,7 @@ using AIIG4.Model.InnerModel.BehaviourClasses;
 using Microsoft.Xna.Framework;
 using AIIG4.View;
 
-namespace AIIG4.Model.InnerModel
+namespace AIIG4.Model.InnerModel.Entities
 {
 	public class Entity
 	{
@@ -201,22 +201,22 @@ namespace AIIG4.Model.InnerModel
 
         private void WrapAround()
         {
-            if ((this.position.X >= MainGame.FIELD_WIDTH) || (this.position.X < 0.0f))
+            if ((this.position.X >= MainGame.Instance.GameAreaRect.Width) || (this.position.X < 0.0f))
             {
-                this.position.X %= MainGame.FIELD_WIDTH;
+                this.position.X %= MainGame.Instance.GameAreaRect.Width;
             }
             if(this.position.X < 0.0f)
             {
-                this.position.X += MainGame.FIELD_WIDTH;
+                this.position.X += MainGame.Instance.GameAreaRect.Width;
             }
 
-            if ((this.position.Y >= MainGame.FIELD_HEIGHT) || (this.position.Y < 0.0f))
+            if ((this.position.Y >= MainGame.Instance.GameAreaRect.Height) || (this.position.Y < 0.0f))
             {
-                this.position.Y %= MainGame.FIELD_HEIGHT;
+                this.position.Y %= MainGame.Instance.GameAreaRect.Height;
             }
             if (this.position.Y < 0.0f)
             {
-                this.position.Y += MainGame.FIELD_HEIGHT;
+                this.position.Y += MainGame.Instance.GameAreaRect.Height;
             }
         }
 

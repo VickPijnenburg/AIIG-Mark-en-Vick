@@ -110,12 +110,12 @@
     <Compile Include="Controller\MainController.cs" />
     <Compile Include="Model\Area.cs" />
     <Compile Include="Model\AreaFactory.cs" />
-    <Compile Include="Model\Pill.cs" />
-    <Compile Include="Model\Cow.cs" />
+    <Compile Include="Model\Entities\Cow.cs" />
+    <Compile Include="Model\Entities\Entity.cs" />
+    <Compile Include="Model\Entities\Hare.cs" />
+    <Compile Include="Model\Entities\Pill.cs" />
     <Compile Include="Model\Edge.cs" />
-    <Compile Include="Model\Entity.cs" />
     <Compile Include="Model\EventManager.cs" />
-    <Compile Include="Model\Hare.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\StateBehaviour.cs" />

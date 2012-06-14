@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using AIIG4.View;
 
-namespace AIIG4.Model.InnerModel
+namespace AIIG4.Model.InnerModel.GraphClasses
 {
     public class Node
     {

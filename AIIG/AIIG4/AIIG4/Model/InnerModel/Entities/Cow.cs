@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace AIIG4.Model.InnerModel
+namespace AIIG4.Model.InnerModel.Entities
 {
 	class Cow : Entity
 	{

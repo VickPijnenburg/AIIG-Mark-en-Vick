@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using AIIG4.View;
 
-namespace AIIG4.Model
+namespace AIIG4.Model.InnerModel.GraphClasses
 {
     public class Edge
     {
@@ -82,7 +82,7 @@ namespace AIIG4.Model
 
         private Texture2D CreateLineTexture()
         {
-            Rectangle viewRect = MainView.Instance.ViewRect;
+            Rectangle viewRect = MainGame.Instance.GameAreaRect;
             Texture2D lineTexture = new Texture2D(MainGame.Instance.GraphicsDevice, viewRect.Width, viewRect.Height);
 
             LineDrawingDevice.SetBHLine

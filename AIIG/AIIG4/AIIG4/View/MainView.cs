@@ -9,15 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace AIIG4.View
 {
 	public class MainView
-	{
-
-        //////////////////////////////
-        //Constants//
-        //////////////////////////////
-
-        private static readonly Rectangle VIEW_RECT = new Rectangle(0, 0, 800, 600);
-        
-
+	{   
 
 		//////////////////////////////
 		//Properties//
@@ -42,6 +34,7 @@ namespace AIIG4.View
             font = MainGame.Instance.Content.Load<SpriteFont>("GameAssets/gameFont");
 
             this.spriteBatch = new SpriteBatch(MainGame.Instance.GraphicsDevice);
+
 		}
 
 
@@ -67,11 +60,6 @@ namespace AIIG4.View
             get { return this.spriteBatch; }
         }
 
-        public Rectangle ViewRect
-        {
-            get { return VIEW_RECT; }
-        }
-
         public static SpriteFont Font
         {
             get { return font; }
@@ -88,7 +76,6 @@ namespace AIIG4.View
             this.SpriteBatch.Begin();
 
             MainModel.Instance.Cow.Draw(gameTime);
-            MainModel.Instance.Hare.Draw(gameTime);
 
             this.SpriteBatch.End();
         }

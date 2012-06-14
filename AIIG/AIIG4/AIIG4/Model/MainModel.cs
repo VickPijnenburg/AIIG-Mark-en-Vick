@@ -6,6 +6,7 @@ using AIIG4.Model.InnerModel;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using AIIG4.Model.InnerModel.BehaviourClasses;
+using AIIG4.Model.InnerModel.Entities;
 
 namespace AIIG4.Model
 {
@@ -19,7 +20,6 @@ namespace AIIG4.Model
         private static MainModel instance;
 
         private Entity cow;
-        private Entity hare;
 
 
 
@@ -32,7 +32,6 @@ namespace AIIG4.Model
             instance = this;
 
             MakeCow();
-            MakeHare();
         }
 
 
@@ -58,10 +57,6 @@ namespace AIIG4.Model
             get { return this.cow; }
         }
 
-        public Entity Hare
-        {
-            get { return this.hare; }
-        }
 
 
         //////////////////////////////
@@ -78,20 +73,9 @@ namespace AIIG4.Model
             this.Cow.AddBehaviour(new ChaseSteering(0.1f));
         }
 
-        private void MakeHare()
-        {
-            this.hare = new Hare(MainGame.Instance.Content.Load<Texture2D>("GameAssets/rabbit-3"));
-            this.hare.Position = new Vector2(100, 500);
-
-			this.hare.AddBehaviour(new ConstantPropulsion(0.06f));
-			this.hare.AddBehaviour(new Wandering(0.1f));
-			this.hare.AddBehaviour(new Flee(0.05f, 0.02f, 200.0f));
-        }
-
         public void Update(GameTime gameTime)
         {
             this.cow.Update(gameTime);
-            this.hare.Update(gameTime);
         }
     }
 }

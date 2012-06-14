@@ -107,18 +107,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Edge.cs" />
+    <Compile Include="Model\InnerModel\Entities\AutonomousEntity.cs" />
+    <Compile Include="Model\InnerModel\Entities\GraphMovingEntity.cs" />
+    <Compile Include="Model\InnerModel\Flock.cs" />
+    <Compile Include="Model\InnerModel\GraphClasses\Edge.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\ChaseSteering.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\ConstantPropulsion.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\Flee.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\InputSteeringBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\Wandering.cs" />
-    <Compile Include="Model\InnerModel\Cow.cs" />
-    <Compile Include="Model\InnerModel\Entity.cs" />
-    <Compile Include="Model\InnerModel\Graph.cs" />
-    <Compile Include="Model\InnerModel\Hare.cs" />
+    <Compile Include="Model\InnerModel\Entities\Cow.cs" />
+    <Compile Include="Model\InnerModel\Entities\Entity.cs" />
+    <Compile Include="Model\InnerModel\GraphClasses\Graph.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\Behaviour.cs" />
-    <Compile Include="Model\InnerModel\Node.cs" />
+    <Compile Include="Model\InnerModel\GraphClasses\Node.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

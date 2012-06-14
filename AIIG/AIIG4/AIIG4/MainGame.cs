@@ -23,8 +23,7 @@ namespace AIIG4
         //Constants//
         //////////////////////////////
 
-        public const int FIELD_WIDTH = 800;
-        public const int FIELD_HEIGHT = 600;
+        private static readonly Rectangle GAME_AREA_RECT = new Rectangle(0, 0, 800, 600);
 
 
 
@@ -34,7 +33,7 @@ namespace AIIG4
 
         private static MainGame instance;
 
-		GraphicsDeviceManager graphics;
+        GraphicsDeviceManager graphicsDeviceManager;
 
 
 
@@ -46,7 +45,7 @@ namespace AIIG4
 		{
             instance = this;
 
-			graphics = new GraphicsDeviceManager(this);
+            this.graphicsDeviceManager = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 		}
 
@@ -68,6 +67,16 @@ namespace AIIG4
             }
         }
 
+        public GraphicsDeviceManager GraphicsDeviceManager
+        {
+            get { return this.graphicsDeviceManager; }
+        }
+
+        public Rectangle GameAreaRect
+        {
+            get { return GAME_AREA_RECT; }
+        }
+
 
 
         //////////////////////////////
@@ -76,9 +85,10 @@ namespace AIIG4
 
 		protected override void Initialize()
 		{
-            graphics.PreferredBackBufferWidth = FIELD_WIDTH;
-            graphics.PreferredBackBufferHeight = FIELD_HEIGHT;
-            graphics.ApplyChanges();
+
+            this.GraphicsDeviceManager.PreferredBackBufferWidth = this.GameAreaRect.Width;
+            this.GraphicsDeviceManager.PreferredBackBufferHeight = this.GameAreaRect.Height;
+            this.GraphicsDeviceManager.ApplyChanges();
 
 			base.Initialize();
 		}

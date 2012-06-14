@@ -17,12 +17,19 @@ namespace AIIG4.Model.InnerModel.Factories
         //////////////////////////////
 
 
-        /*Cow*/
+        /*Objects*/
 
-        private static readonly Vector2 COW_START_POSITION = new Vector2(300, 200);
+        private static readonly Random randomGenerator = new Random();
+
+
+        /*Cows*/
+
+        private const int NUMBER_OF_COWS = 20;
+
         private const float COW_PROPULSION = 0.07f;
 
-        /*Projectile*/
+
+        /*Projectiles*/
 
         private const String PROJECTILE_TEXTURE_NAME = "GameAssets/laser";
         private const float PROJECTILE_PROPULSION = 0.1f;
@@ -38,21 +45,30 @@ namespace AIIG4.Model.InnerModel.Factories
 
         public static void CreateStartEntities()
         {
-            CreateCow();
+            CreateCows();
         }
 
 
 
-        /*Cow*/
+        /*Cows*/
 
-        private static void CreateCow()
+        private static void CreateCows()
+        {
+            for (int i = 0; i < NUMBER_OF_COWS; i++)
+            {
+                CreateCow(CreateRandomPosition(), CreateRandomHeading());
+            }
+        }
+
+        private static void CreateCow(Vector2 startPosition, Vector2 startHeading)
         {
             //Creating cow
 
             Texture2D cowTexture = MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow");
             AutonomousEntity cow = new AutonomousEntity(EntityManager.EntityType.FlockMember, cowTexture)
                 {
-                    Position = COW_START_POSITION
+                    Position = startPosition,
+                    Heading = startHeading
                 };
 
 
@@ -77,6 +93,24 @@ namespace AIIG4.Model.InnerModel.Factories
 
             //adding behaviour
             new ConstantPropulsion(projectile, PROJECTILE_PROPULSION);
+        }
+
+
+        /*Convenience*/
+
+        private static Vector2 CreateRandomPosition()
+        {
+            float randomX = (float)randomGenerator.NextDouble() * MainGame.Instance.GameAreaRect.Width;
+            float randomY = (float)randomGenerator.NextDouble() * MainGame.Instance.GameAreaRect.Height;
+
+            return new Vector2(randomX, randomY);
+        }
+
+        private static Vector2 CreateRandomHeading()
+        {
+            double randomAngle = (randomGenerator.NextDouble() * Math.PI * 2.0f);
+
+            return new Vector2((float)Math.Cos(randomAngle), (float)Math.Sin(randomAngle));
         }
 
     }

@@ -76,7 +76,7 @@ namespace AIIG4.Model.InnerModel.Entities
         //Properties//
         //////////////////////////////
 
-        public Vector2 Position
+        public virtual Vector2 Position
         {
             get { return this.position; }
             set { this.position = value; }

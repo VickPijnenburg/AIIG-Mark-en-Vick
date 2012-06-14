@@ -4,20 +4,29 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using AIIG4.Model.InnerModel.Entities;
 
-namespace AIIG4.Model.InnerModel.BehaviourClasses
+namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 {
-    public class InputSteeringBehaviour : Behaviour
+    public class InputSteeringBehaviour : AutonomousBehaviour
     {
+
+        //Fields
 
         private const float FORCE = 0.1f;
         private const float STEER_FORCE = 0.2f;
 
-        public InputSteeringBehaviour()
-        {
 
-        }
 
+        //Constructors
+
+        public InputSteeringBehaviour(AutonomousEntity host)
+            : base(host)
+        { }
+
+
+
+        //Methods
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
@@ -38,7 +47,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
                 steerForce -= Host.Side * STEER_FORCE;
             }
 
-            this.Host.ApplySteeringForce(steerForce);
+            this.Host.ApplyForce(steerForce);
 
             base.Update(gameTime);
         }

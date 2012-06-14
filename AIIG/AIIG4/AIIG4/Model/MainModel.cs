@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using AIIG4.Model.InnerModel.BehaviourClasses;
 using AIIG4.Model.InnerModel.Entities;
+using AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses;
 
 namespace AIIG4.Model
 {
@@ -19,7 +20,7 @@ namespace AIIG4.Model
 
         private static MainModel instance;
 
-        private Entity cow;
+        private AutonomousEntity cow;
 
 
 
@@ -52,7 +53,7 @@ namespace AIIG4.Model
             }
         }
 
-        public Entity Cow
+        public AutonomousEntity Cow
         {
             get { return this.cow; }
         }
@@ -65,12 +66,12 @@ namespace AIIG4.Model
 
         private void MakeCow()
         {
-            this.cow = new Entity(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
+            this.cow = new AutonomousEntity(MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow"));
             this.cow.Position = new Vector2(300, 200);
 
-            this.Cow.AddBehaviour(new InputSteeringBehaviour());
-            this.Cow.AddBehaviour(new ConstantPropulsion(0.07f));
-            this.Cow.AddBehaviour(new ChaseSteering(0.1f));
+            new InputSteeringBehaviour(this.cow);
+            new ConstantPropulsion(this.cow, 0.07f);
+            new ChaseSteering(this.cow, 0.1f);
         }
 
         public void Update(GameTime gameTime)

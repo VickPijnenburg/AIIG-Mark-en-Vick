@@ -5,9 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using AIIG4.Model.InnerModel.Entities;
 
-namespace AIIG4.Model.InnerModel.BehaviourClasses
+namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 {
-    public class ChaseSteering : Behaviour
+    public class ChaseSteering : AutonomousBehaviour
     {
 
         //Fields
@@ -18,7 +18,8 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         //Constructors
 
-        public ChaseSteering(float force)
+        public ChaseSteering(AutonomousEntity host, float force)
+            : base(host)
         {
             this.force = force;
         }
@@ -50,14 +51,14 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
                 {
                     if (dotProductHeading < 0 || dotProductSide < 40)
                     {
-                        Host.ApplySteeringForce(Host.Side * -force);
+                        Host.ApplyForce(Host.Side * -force);
                     }
                 }
                 else
                 {
                     if (dotProductHeading < 0 || dotProductSide > 40)
                     {
-                        Host.ApplySteeringForce(Host.Side * force);
+                        Host.ApplyForce(Host.Side * force);
                     }
                 }
             }

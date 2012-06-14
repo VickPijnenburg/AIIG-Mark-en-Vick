@@ -22,9 +22,10 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
         //Constructors//
         //////////////////////////////
 
-        public Behaviour()
+        public Behaviour(Entity host)
         {
-
+            this.host = host;
+            host.AddBehaviour(this);
         }
 
 
@@ -36,7 +37,6 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
         public Entity Host
         {
             get { return this.host; }
-            set { this.host = value; }
         }
 
 

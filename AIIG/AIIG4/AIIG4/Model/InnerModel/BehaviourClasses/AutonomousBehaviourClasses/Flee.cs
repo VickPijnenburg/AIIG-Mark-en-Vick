@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using AIIG4.Model.InnerModel.Entities;
 
-namespace AIIG4.Model.InnerModel.BehaviourClasses
+namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 {
-	class Flee : Behaviour
+	class Flee : AutonomousBehaviour
 	{
 
 		//Fields
@@ -17,7 +18,8 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         //Constructors
 
-		public Flee(float steeringForce, float force, float activeDistance)
+        public Flee(AutonomousEntity host, float steeringForce, float force, float activeDistance)
+            :base(host)
 		{
 			this.steeringForce = steeringForce;
 			this.force = force;
@@ -52,18 +54,18 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
             {
                 if (dotProductHeading < 0 || dotProductSide < 40)
                 {
-                    Host.ApplySteeringForce(Host.Side * steeringForce);
+                    Host.ApplyForce(Host.Side * steeringForce);
                 }
             }
             else
             {
                 if (dotProductHeading < 0 || dotProductSide > 40)
                 {
-                    Host.ApplySteeringForce(Host.Side * -steeringForce);
+                    Host.ApplyForce(Host.Side * -steeringForce);
                 }
             }
 
-            Host.ApplySteeringForce(Host.Heading * this.force);
+            Host.ApplyForce(Host.Heading * this.force);
         }
 	}
 }

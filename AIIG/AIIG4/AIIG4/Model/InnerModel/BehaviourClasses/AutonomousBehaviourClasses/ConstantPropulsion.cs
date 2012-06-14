@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AIIG4.Model.InnerModel.Entities;
 
-namespace AIIG4.Model.InnerModel.BehaviourClasses
+namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 {
-    public class ConstantPropulsion : Behaviour
+    public class ConstantPropulsion : AutonomousBehaviour
     {
 
         //Fields
@@ -15,7 +16,8 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
 
         //Constructors
-        public ConstantPropulsion(float force)
+        public ConstantPropulsion(AutonomousEntity host, float force)
+            : base(host)
         {
             this.force = force;
         }
@@ -26,7 +28,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            Host.ApplySteeringForce(Host.Heading * this.force);
+            Host.ApplyForce(Host.Heading * this.force);
         }
     }
 }

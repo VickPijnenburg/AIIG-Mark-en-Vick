@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AIIG4.Model.InnerModel.Entities;
 
-namespace AIIG4.Model.InnerModel.BehaviourClasses
+namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 {
-    public class Wandering : Behaviour
+    public class Wandering : AutonomousBehaviour
     {
 
         //Fields
@@ -16,7 +17,8 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         //Constructors
 
-        public Wandering(float maxForce)
+        public Wandering(AutonomousEntity host, float maxForce)
+            : base(host)
         {
             this.maxForce = maxForce;
             this.randomGenerator = new Random();
@@ -30,7 +32,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
         {
             float randomSteerForce = ((float)this.randomGenerator.NextDouble() - 0.5f) * maxForce * 2;
 
-            this.Host.ApplySteeringForce(Host.Side * randomSteerForce);
+            this.Host.ApplyForce(Host.Side * randomSteerForce);
 
             base.Update(gameTime);
         }

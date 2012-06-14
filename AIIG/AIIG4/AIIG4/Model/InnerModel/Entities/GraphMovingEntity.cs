@@ -42,8 +42,12 @@ namespace AIIG4.Model.InnerModel.Entities
             get { return this.positionNode; }
             set
             {
-                this.positionNode = value;
-                this.realPositionIsUpToDate = false;
+                if (this.positionNode != value)
+                {
+                    this.positionNode = value;
+
+                    this.realPositionIsUpToDate = false;
+                }
             }
         }
 
@@ -52,8 +56,12 @@ namespace AIIG4.Model.InnerModel.Entities
             get { return this.movementEdge; }
             set
             {
-                this.movementEdge = value;
-                this.realPositionIsUpToDate = false;
+                if (this.movementEdge != value)
+                {
+                    this.movementEdge = value;
+
+                    this.realPositionIsUpToDate = false;
+                }
             }
         }
 
@@ -62,8 +70,12 @@ namespace AIIG4.Model.InnerModel.Entities
             get { return this.edgeMovementProgress; }
             set
             {
-                this.edgeMovementProgress = value;
-                this.realPositionIsUpToDate = false;
+                if (this.edgeMovementProgress != value)
+                {
+                    this.edgeMovementProgress = value;
+
+                    this.realPositionIsUpToDate = false;
+                }
             }
         }
 
@@ -73,7 +85,7 @@ namespace AIIG4.Model.InnerModel.Entities
             {
                 if(!this.realPositionIsUpToDate)
                 {
-                    UpdateRealPosition();
+                    UpdateBasePosition();
                 }
                 return base.Position;
             }
@@ -83,23 +95,23 @@ namespace AIIG4.Model.InnerModel.Entities
 
         //Methods
 
-        private void UpdateRealPosition()
+        private void UpdateBasePosition()
         {
             if (this.positionNode != null)
             {
                 if (this.movementEdge != null)
                 {
-                    this.Position = CalculateRealPositionOnMovementEdge();
+                    base.Position = CalculateRealPositionOnMovementEdge();
                 }
                 else
                 {
-                    this.Position = this.positionNode.Position;
+                    base.Position = this.positionNode.Position;
                 }
             }
             else
             {
                 Console.WriteLine("Warning! GraphMovingEntity has no position node!");
-                this.Position = Vector2.Zero;
+                base.Position = Vector2.Zero;
             }
 
             this.realPositionIsUpToDate = true;
@@ -111,23 +123,30 @@ namespace AIIG4.Model.InnerModel.Entities
 
             if (this.MovementEdge.Node1 == this.PositionNode)
             {
-                realPosition += MovedEdgeDistanceForNodes(this.MovementEdge.Node2, this.MovementEdge.Node1);
-            }
-            else if (this.MovementEdge.Node1 == this.PositionNode)
-            {
                 realPosition += MovedEdgeDistanceForNodes(this.MovementEdge.Node1, this.MovementEdge.Node2);
+            }
+            else if (this.MovementEdge.Node2 == this.PositionNode)
+            {
+                realPosition += MovedEdgeDistanceForNodes(this.MovementEdge.Node2, this.MovementEdge.Node1);
             }
             else
             {
                 Console.WriteLine("Fout! Edge is niet aan de huidige node gelinkt.");
             }
 
-            return Vector2.Zero;
+            return realPosition;
         }
 
         private Vector2 MovedEdgeDistanceForNodes(Node startNode, Node endNode)
         {
-            return (endNode.Position - startNode.Position) * this.edgeMovementProgress;
+            if (this.edgeMovementProgress > 0.0f)
+            {
+                return (endNode.Position - startNode.Position) * this.edgeMovementProgress;
+            }
+            else
+            {
+                return startNode.Position;
+            }
         }
     }
 }

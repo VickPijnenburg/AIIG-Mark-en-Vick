@@ -111,6 +111,7 @@
     <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\GraphMovingBehaviour.cs" />
     <Compile Include="Model\InnerModel\Entities\AutonomousEntity.cs" />
     <Compile Include="Model\InnerModel\Entities\GraphMovingEntity.cs" />
+    <Compile Include="Model\InnerModel\Factories\GraphFactory.cs" />
     <Compile Include="Model\InnerModel\Flock.cs" />
     <Compile Include="Model\InnerModel\GraphClasses\Edge.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\ChaseSteering.cs" />

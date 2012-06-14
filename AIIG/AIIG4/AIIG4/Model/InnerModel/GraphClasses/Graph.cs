@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace AIIG4.Model.InnerModel.GraphClasses
 {
@@ -37,6 +38,21 @@ namespace AIIG4.Model.InnerModel.GraphClasses
             get { return allEdges; }
         }
 
+
+
+        //Methods
+
+        public void Draw(GameTime gameTime)
+        {
+            foreach (Edge edge in this.AllEdges)
+            {
+                edge.Draw(gameTime);
+            }
+            foreach (Node node in this.AllNodes)
+            {
+                node.Draw(gameTime);
+            }
+        }
 
     }
 }

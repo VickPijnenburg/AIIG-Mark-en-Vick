@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework;
 using AIIG4.Model.InnerModel.BehaviourClasses;
 using AIIG4.Model.InnerModel.Entities;
 using AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses;
+using AIIG4.Model.InnerModel.GraphClasses;
+using AIIG4.Model.InnerModel.Factories;
 
 namespace AIIG4.Model
 {
@@ -20,6 +22,7 @@ namespace AIIG4.Model
 
         private static MainModel instance;
 
+        private Graph graph;
         private AutonomousEntity cow;
 
 
@@ -32,6 +35,7 @@ namespace AIIG4.Model
         {
             instance = this;
 
+            this.graph = GraphFactory.CreateGraph();
             MakeCow();
         }
 
@@ -51,6 +55,11 @@ namespace AIIG4.Model
                 }
                 return instance;
             }
+        }
+
+        public Graph Graph
+        {
+            get { return this.graph; }
         }
 
         public AutonomousEntity Cow

@@ -23,7 +23,7 @@ namespace AIIG4
         //Constants//
         //////////////////////////////
 
-        private static readonly Rectangle GAME_AREA_RECT = new Rectangle(0, 0, 800, 600);
+        private static readonly Rectangle GAME_AREA_RECT = new Rectangle(0, 0, 1200, 700);
 
 
 

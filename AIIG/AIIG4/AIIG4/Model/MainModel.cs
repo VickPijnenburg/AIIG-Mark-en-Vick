@@ -85,7 +85,7 @@ namespace AIIG4.Model
 
 			this.hare.AddBehaviour(new ConstantPropulsion(0.06f));
 			this.hare.AddBehaviour(new Wandering(0.1f));
-			this.hare.AddBehaviour(new Flee(0.1f, 0.02f));
+			this.hare.AddBehaviour(new Flee(0.05f, 0.02f, 200.0f));
         }
 
         public void Update(GameTime gameTime)

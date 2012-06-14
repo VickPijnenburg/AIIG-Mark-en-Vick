@@ -8,17 +8,20 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 {
 	class Flee : Behaviour
 	{
+
 		//Fields
 		private float steeringForce;
 		private float force;
+        private float activeDistance;
 
 
         //Constructors
 
-		public Flee(float steeringForce, float force)
+		public Flee(float steeringForce, float force, float activeDistance)
 		{
 			this.steeringForce = steeringForce;
 			this.force = force;
+            this.activeDistance = activeDistance;
         }
 
 
@@ -27,27 +30,40 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-			Vector2 harePositionHeading = (MainModel.Instance.Hare.Position - Host.Position);
+            float squaredActiveDistance = activeDistance * activeDistance;
+            float squaredCowDistance = (Host.Position - MainModel.Instance.Cow.Position).LengthSquared();
 
-			float dotProductSide = Vector2.Dot(Host.Side, harePositionHeading);
-			float dotProductHeading = Vector2.Dot(Host.Heading, harePositionHeading);
+            Console.WriteLine("AD: " + squaredActiveDistance + " CD: " + squaredCowDistance);
 
-			if (dotProductSide < 0)
-			{
-				if (dotProductHeading < 0 || dotProductSide < 40)
-				{
-					Host.ApplySteeringForce(Host.Side * steeringForce);
-				}
-			}
-			else
-			{
-				if (dotProductHeading < 0 || dotProductSide > 40)
-				{
-					Host.ApplySteeringForce(Host.Side * -steeringForce);
-				}
-			}
+            if (squaredCowDistance  < squaredActiveDistance)
+            {
+                GoFlee();
+            }
+        }
 
-			Host.ApplySteeringForce(Host.Heading * this.force);
+        private void GoFlee()
+        {
+            Vector2 cowPositionHeading = (MainModel.Instance.Cow.Position - Host.Position);
+
+            float dotProductSide = Vector2.Dot(Host.Side, cowPositionHeading);
+            float dotProductHeading = Vector2.Dot(Host.Heading, cowPositionHeading);
+
+            if (dotProductSide < 0)
+            {
+                if (dotProductHeading < 0 || dotProductSide < 40)
+                {
+                    Host.ApplySteeringForce(Host.Side * steeringForce);
+                }
+            }
+            else
+            {
+                if (dotProductHeading < 0 || dotProductSide > 40)
+                {
+                    Host.ApplySteeringForce(Host.Side * -steeringForce);
+                }
+            }
+
+            Host.ApplySteeringForce(Host.Heading * this.force);
         }
 	}
 }

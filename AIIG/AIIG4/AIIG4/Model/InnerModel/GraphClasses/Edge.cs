@@ -74,10 +74,9 @@ namespace AIIG4.Model.InnerModel.GraphClasses
 
         private void DrawCost()
         {
-            Texture2D castCostTexture = (Texture2D)costTexture;
             Vector2 costPosition = ((Node1.Position + Node2.Position) / 2);
-            costPosition -= new Vector2(castCostTexture.Width / 2, castCostTexture.Height / 2);
-            MainView.Instance.SpriteBatch.Draw((Texture2D)costTexture, costPosition, Color.White);
+            costPosition -= new Vector2(this.costTexture.Width / 2, this.costTexture.Height / 2);
+            MainView.Instance.SpriteBatch.Draw(this.costTexture, costPosition, Color.White);
         }
 
         private Texture2D CreateLineTexture()

@@ -6,6 +6,8 @@ using AIIG4.Model.InnerModel.Entities;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses;
+using AIIG4.Model.InnerModel.Entities.AStarEntityClasses;
+using AIIG4.Model.InnerModel.BehaviourClasses.GraphMovingBehaviourClasses;
 
 namespace AIIG4.Model.InnerModel.Factories
 {
@@ -17,15 +19,21 @@ namespace AIIG4.Model.InnerModel.Factories
         //////////////////////////////
 
 
-        /*Objects*/
+        /*randomGenerator*/
 
         private static readonly Random randomGenerator = new Random();
 
 
+        /*Turret*/
+
+        private const String TURRET_TEXTURE_NAME = "GameAssets/Turret";
+
+
         /*Cows*/
 
-        private const int NUMBER_OF_COWS = 20;
+        private const int NUMBER_OF_COWS = 2;
 
+        private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
         private const float COW_PROPULSION = 0.07f;
 
 
@@ -45,9 +53,28 @@ namespace AIIG4.Model.InnerModel.Factories
 
         public static void CreateStartEntities()
         {
+            CreateTurret();
             CreateCows();
         }
 
+
+        /*Turret*/
+
+        private static void CreateTurret()
+        {
+
+            //Creating turret
+
+            Texture2D turretTexture = MainGame.Instance.Content.Load<Texture2D>(TURRET_TEXTURE_NAME);
+            AStarMovementEntity turret = new AStarMovementEntity(
+                EntityManager.EntityType.Turret,
+                turretTexture,
+                MainModel.Instance.Graph.AllNodes.First.Value);
+
+            //Adding behaviour
+
+            GroupChasingGraphMovement cowChasing = new GroupChasingGraphMovement(turret, EntityManager.EntityType.FlockMember);
+        }
 
 
         /*Cows*/
@@ -64,7 +91,7 @@ namespace AIIG4.Model.InnerModel.Factories
         {
             //Creating cow
 
-            Texture2D cowTexture = MainGame.Instance.Content.Load<Texture2D>("GameAssets/lemmling_Cartoon_cow");
+            Texture2D cowTexture = MainGame.Instance.Content.Load<Texture2D>(COW_TEXTURE_NAME);
             AutonomousEntity cow = new AutonomousEntity(EntityManager.EntityType.FlockMember, cowTexture)
                 {
                     Position = startPosition,

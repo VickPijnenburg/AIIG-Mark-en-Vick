@@ -73,11 +73,15 @@ namespace AIIG4.View
 
         public void Draw(GameTime gameTime)
         {
-            this.SpriteBatch.Begin();
+            this.SpriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.AlphaBlend);
 
             MainModel.Instance.Graph.Draw(gameTime);
-            MainModel.Instance.EntityManagement.Draw(gameTime);
+            this.SpriteBatch.End();
 
+            this.SpriteBatch.Begin();
+            MainModel.Instance.EntityManagement.Draw(gameTime);
             this.SpriteBatch.End();
         }
 	}

@@ -11,141 +11,158 @@ namespace AIIG4.Model.InnerModel.Entities
     public class GraphMovingEntity : Entity
     {
 
-        //Fields
+        //////////////////////////////
+        //Constants//
+        //////////////////////////////
 
-        Node positionNode;
-        Edge movementEdge;
-
-        float edgeMovementProgress;
-
-        bool realPositionIsUpToDate;
+        private const int INITIAL_ELAPSED_TIME = 0;
+        private const int MILLISECONDS_PER_COST_POINT = 1000;
 
 
 
-        //Constructors
+        //////////////////////////////
+        //Fields//
+        //////////////////////////////
+
+        private Node positionNode;
+        private Edge movementEdge;
+
+        private int elapsedTimeMoving;
+
+
+
+        //////////////////////////////
+        //Constructors//
+        //////////////////////////////
 
         public GraphMovingEntity(EntityManager.EntityType entityType, Texture2D startTexture, Node startNode)
             : base(entityType, startTexture)
         {
             this.positionNode = startNode;
-
             this.Position = positionNode.Position;
-            this.realPositionIsUpToDate = true;
+
+            this.elapsedTimeMoving = INITIAL_ELAPSED_TIME;
         }
 
 
 
-        //Properties
+        //////////////////////////////
+        //Properties//
+        //////////////////////////////
 
         public Node PositionNode
         {
             get { return this.positionNode; }
-            set
-            {
-                if (this.positionNode != value)
-                {
-                    this.positionNode = value;
-
-                    this.realPositionIsUpToDate = false;
-                }
-            }
+            set { this.positionNode = value; }
         }
 
-        public Edge MovementEdge
+        public bool IsMoving
         {
-            get { return this.movementEdge; }
-            set
-            {
-                if (this.movementEdge != value)
-                {
-                    this.movementEdge = value;
-
-                    this.realPositionIsUpToDate = false;
-                }
-            }
-        }
-
-        public float EdgeMovementProgress
-        {
-            get { return this.edgeMovementProgress; }
-            set
-            {
-                if (this.edgeMovementProgress != value)
-                {
-                    this.edgeMovementProgress = value;
-
-                    this.realPositionIsUpToDate = false;
-                }
-            }
-        }
-
-        public override Vector2 Position
-        {
-            get
-            {
-                if(!this.realPositionIsUpToDate)
-                {
-                    UpdateBasePosition();
-                }
-                return base.Position;
-            }
+            get { return (this.movementEdge != null); }
         }
 
 
 
-        //Methods
+        //////////////////////////////
+        //Methods//
+        //////////////////////////////
 
-        private void UpdateBasePosition()
+
+        /*Move over edge method*/
+
+        public void MoveOverEdge(Edge edge)
         {
-            if (this.positionNode != null)
+            this.movementEdge = edge;
+        }
+
+
+        /*Update methods*/
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            MoveAsNeeded(gameTime);
+        }
+
+
+        /*Movement methods*/
+
+        private void MoveAsNeeded(GameTime gameTime)
+        {
+            if (this.IsMoving)
             {
-                if (this.movementEdge != null)
+                ProceedMoveTime(gameTime);
+
+                int totalMoveTime = movementEdge.Cost * MILLISECONDS_PER_COST_POINT;
+
+                if (elapsedTimeMoving >= totalMoveTime)
                 {
-                    base.Position = CalculateRealPositionOnMovementEdge();
+                    ArriveAtNode();
                 }
                 else
                 {
-                    base.Position = this.positionNode.Position;
+                    SetNewPosition(totalMoveTime);
+                }
+            }
+        }
+
+        private void ProceedMoveTime(GameTime gameTime)
+        {
+            this.elapsedTimeMoving += gameTime.ElapsedGameTime.Milliseconds;
+        }
+
+        private void ArriveAtNode()
+        {
+            this.PositionNode = DetermineNodeToMoveTo();
+            this.Position = this.PositionNode.Position;
+            this.movementEdge = null;
+            this.elapsedTimeMoving = INITIAL_ELAPSED_TIME;
+        }
+
+        private void SetNewPosition(int totalMoveTime)
+        {
+            Vector2 movedDistance = CalculateDistanceToMove();
+            movedDistance *= elapsedTimeMoving;
+            movedDistance /= totalMoveTime;
+
+            this.Position = this.PositionNode.Position + movedDistance;
+        }
+
+
+        /*Convenience*/
+
+        private Node DetermineNodeToMoveTo()
+        {
+            if (this.movementEdge != null)
+            {
+                if (this.movementEdge.Node1 == this.PositionNode)
+                {
+                    return this.movementEdge.Node2;
+                }
+                else
+                {
+                    return this.movementEdge.Node1;
                 }
             }
             else
             {
-                Console.WriteLine("Warning! GraphMovingEntity has no position node!");
-                base.Position = Vector2.Zero;
+                return null;
             }
-
-            this.realPositionIsUpToDate = true;
         }
 
-        private Vector2 CalculateRealPositionOnMovementEdge()
+        private Vector2 CalculateDistanceToMove()
         {
-            Vector2 realPosition = this.PositionNode.Position;
+            Node nodeToMoveTo = DetermineNodeToMoveTo();
 
-            if (this.MovementEdge.Node1 == this.PositionNode)
+            if (nodeToMoveTo != null)
             {
-                realPosition += MovedEdgeDistanceForNodes(this.MovementEdge.Node1, this.MovementEdge.Node2);
-            }
-            else if (this.MovementEdge.Node2 == this.PositionNode)
-            {
-                realPosition += MovedEdgeDistanceForNodes(this.MovementEdge.Node2, this.MovementEdge.Node1);
+                return (nodeToMoveTo.Position - this.PositionNode.Position);
             }
             else
             {
                 Console.WriteLine("Fout! Edge is niet aan de huidige node gelinkt.");
-            }
-
-            return realPosition;
-        }
-
-        private Vector2 MovedEdgeDistanceForNodes(Node startNode, Node endNode)
-        {
-            if (this.edgeMovementProgress > 0.0f)
-            {
-                return (endNode.Position - startNode.Position) * this.edgeMovementProgress;
-            }
-            else
-            {
-                return startNode.Position;
+                return Vector2.Zero;
             }
         }
     }

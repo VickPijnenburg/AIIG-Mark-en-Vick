@@ -64,6 +64,16 @@ namespace AIIG4.Model.InnerModel
         }
 
 
+        /*Accessors*/
+
+        public LinkedList<Entity> GetEntitiesForType(EntityType entityType)
+        {
+            AddEntityListAsNeeded(entityType);
+
+            return this.entities[entityType];
+        }
+
+
         /*Update methods*/
 
         public void Update(GameTime gameTime)

@@ -15,12 +15,11 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
         //Constants//
         //////////////////////////////
 
-        private const float COLLISION_AVOID_PRIORITY = 6.0f;
-        private const float FLOCK_PRIORITY = 7.0f;
-        private const float ALIGN_PRIORITY = 12.0f;
+        private const float COLLISION_AVOID_PRIORITY = 2.0f;
+        private const float FLOCK_PRIORITY = 4.0f;
+        private const float ALIGN_PRIORITY = 6.0f;
 
-        private const float MAX_NEIGHBOUR_DISTANCE = 80.0f;
-        private const float COLLISION_AVOID_DISTANCE = 80.0f;
+        private const float DETECTION_DISTANCE = 115.0f;
 
 
 
@@ -82,19 +81,17 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
         private void ApplyCollisionAvoidance(LinkedList<FlockEntity> neighbours, ref Vector2 force)
         {
-            LinkedList<FlockEntity> neighboursToAvoid = CollectNeighboursToAvoid(neighbours);
+            LinkedList<FlockEntity> neighboursToAvoid = CollectNeighbours();
 
             if (neighboursToAvoid.Count > 0)
             {
-                
-
                 Vector2 collisionAvoidanceVector = this.Host.Position;
                 collisionAvoidanceVector -= CalculateAveragePosition(neighbours);
                 collisionAvoidanceVector.Normalize();
 
                 float priority = COLLISION_AVOID_PRIORITY;
                 priority /= collisionAvoidanceVector.LengthSquared();
-                priority *= COLLISION_AVOID_DISTANCE;
+                priority *= DETECTION_DISTANCE;
 
                 collisionAvoidanceVector *= priority;
 
@@ -132,24 +129,14 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
         private LinkedList<FlockEntity> CollectNeighbours()
         {
-            return CollectNeighboursFromListWithinDistance(this.Host.Flock.Members, MAX_NEIGHBOUR_DISTANCE);
-        }
-
-        private LinkedList<FlockEntity> CollectNeighboursToAvoid(LinkedList<FlockEntity> neighbours)
-        {
-            return CollectNeighboursFromListWithinDistance(neighbours, COLLISION_AVOID_DISTANCE);
-        }
-
-        private LinkedList<FlockEntity> CollectNeighboursFromListWithinDistance(IEnumerable<FlockEntity> possibleNeighbours, float distance)
-        {
             LinkedList<FlockEntity> neighbours = new LinkedList<FlockEntity>();
 
-            foreach (FlockEntity possibleNeighbour in possibleNeighbours)
+            foreach (FlockEntity possibleNeighbour in this.Host.Flock.Members)
             {
                 if (possibleNeighbour != this.Host)
                 {
                     float possibleNeighbourDistanceSquared = (possibleNeighbour.Position - this.Host.Position).LengthSquared();
-                    if (possibleNeighbourDistanceSquared <= (distance * distance))
+                    if (possibleNeighbourDistanceSquared <= (DETECTION_DISTANCE * DETECTION_DISTANCE))
                     {
                         neighbours.AddLast(possibleNeighbour);
                     }

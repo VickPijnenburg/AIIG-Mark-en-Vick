@@ -80,6 +80,7 @@ namespace AIIG4.Model.InnerModel.Factories
             //Adding behaviour
 
             GroupChasingGraphMovement cowChasing = new GroupChasingGraphMovement(turret, EntityManager.EntityType.FlockMember);
+			new ShootingBehaviour(turret);
         }
 
 

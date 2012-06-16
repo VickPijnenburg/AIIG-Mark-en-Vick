@@ -19,12 +19,12 @@ namespace AIIG4.Model.InnerModel.Factories
             Node node0 = new Node(graph, new Vector2(400, 100));
             Node node1 = new Node(graph, new Vector2(800, 100));
             Node node2 = new Node(graph, new Vector2(150, 300));
-            Node node3 = new Node(graph, new Vector2(560, 310));
-            Node node4 = new Node(graph, new Vector2(640, 310));
+            Node node3 = new Node(graph, new Vector2(510, 280));
+            Node node4 = new Node(graph, new Vector2(690, 280));
             Node node5 = new Node(graph, new Vector2(1050, 300));
             Node node6 = new Node(graph, new Vector2(150, 450));
-            Node node7 = new Node(graph, new Vector2(560, 390));
-            Node node8 = new Node(graph, new Vector2(640, 390));
+            Node node7 = new Node(graph, new Vector2(510, 440));
+            Node node8 = new Node(graph, new Vector2(690, 440));
             Node node9 = new Node(graph, new Vector2(1050, 450));
             Node node10 = new Node(graph, new Vector2(400, 650));
             Node node11 = new Node(graph, new Vector2(800, 650));

@@ -32,12 +32,14 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Cows*/
 
-        private const int NUMBER_OF_COWS = 20;
+		private const int NUMBER_OF_COWS = 20;
 
         private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
         private const float COW_SCALE = 0.7f;
-        private const float COW_PROPULSION = 0.05f;
-        private const float COW_STEERING_FORCE = 0.04f;
+		private const float COW_PROPULSION = 0.05f;
+		private const float COW_STEERING_FORCE = 0.04f;
+		private const float COW_PROPULSION_INCREMENT = 0.1f;
+		private const float COW_FLEE_ACTIVE_DISTANCE = 200f;
 
 
         /*Projectiles*/
@@ -110,7 +112,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
             new ConstantPropulsion(cow, COW_PROPULSION);
             new FlockSteering(cow, COW_STEERING_FORCE);
-			new Flee(cow, turret, 0.5f, 0, 200);
+			new Flee(cow, turret, COW_PROPULSION_INCREMENT, 0, COW_FLEE_ACTIVE_DISTANCE);
         }
 
 

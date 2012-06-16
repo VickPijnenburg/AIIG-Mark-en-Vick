@@ -12,24 +12,24 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
 		//Fields
 
-        private Entity entityToFleeFrom;
+        private EntityManager.EntityType entityTypeToFleeFrom;
 
 		private float steeringForce;
 		private float force;
-        private float activeDistance;
+        private float detectionDistance;
 
 
 
         //Constructors
 
-        public Flee(AutonomousEntity host, Entity entityToFleeFrom, float steeringForce, float force, float activeDistance)
+        public Flee(AutonomousEntity host, EntityManager.EntityType entityTypeToFleeFrom, float steeringForce, float force, float detectionDistance)
             :base(host)
 		{
-            this.entityToFleeFrom = entityToFleeFrom;
+            this.entityTypeToFleeFrom = entityTypeToFleeFrom;
 
 			this.steeringForce = steeringForce;
 			this.force = force;
-            this.activeDistance = activeDistance;
+            this.detectionDistance = detectionDistance;
         }
 
 
@@ -38,40 +38,59 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            float squaredActiveDistance = activeDistance * activeDistance;
-            float squaredCowDistance = (Host.Position - this.entityToFleeFrom.Position).LengthSquared();
+            FleeAsNeeded();
+        }
 
-            //Console.WriteLine("AD: " + squaredActiveDistance + " CD: " + squaredCowDistance);
+        private void FleeAsNeeded()
+        {
+            Vector2 relativeThreatPosition = CalulateThreatHeading();
 
-            if (squaredCowDistance  < squaredActiveDistance)
+            if (relativeThreatPosition != Vector2.Zero)
             {
-                GoFlee();
+                float dotProductSide = Vector2.Dot(Host.Side, relativeThreatPosition);
+                float dotProductHeading = Vector2.Dot(Host.Heading, relativeThreatPosition);
+
+                if (dotProductSide < 0)
+                {
+                    if (dotProductHeading < 0 || dotProductSide < 40)
+                    {
+                        Host.ApplyForce(Host.Side * steeringForce);
+                    }
+                }
+                else
+                {
+                    if (dotProductHeading < 0 || dotProductSide > 40)
+                    {
+                        Host.ApplyForce(Host.Side * -steeringForce);
+                    }
+                }
+
+                Host.ApplyForce(Host.Heading * this.force);
             }
         }
 
-        private void GoFlee()
+        private Vector2 CalulateThreatHeading()
         {
-            Vector2 relativeThreatPosition = (this.entityToFleeFrom.Position - Host.Position);
+            LinkedList<Entity> possibleNeighbours = MainModel.Instance.EntityManagement.GetEntitiesForType(this.entityTypeToFleeFrom);
 
-            float dotProductSide = Vector2.Dot(Host.Side, relativeThreatPosition);
-            float dotProductHeading = Vector2.Dot(Host.Heading, relativeThreatPosition);
+            Vector2 fleeHeading = Vector2.Zero;
 
-            if (dotProductSide < 0)
+            foreach (Entity possibleNeighbour in possibleNeighbours)
             {
-                if (dotProductHeading < 0 || dotProductSide < 40)
+                if(possibleNeighbour != this.Host)
                 {
-                    Host.ApplyForce(Host.Side * steeringForce);
+                    Vector2 threatRelativePosition = possibleNeighbour.Position - this.Host.Position;
+                    float threatDistanceSquared = threatRelativePosition.LengthSquared();
+                    if (threatDistanceSquared <= (this.detectionDistance * this.detectionDistance))
+                    {
+                        fleeHeading += (threatRelativePosition / threatDistanceSquared);
+                    }
                 }
-            }
-            else
-            {
-                if (dotProductHeading < 0 || dotProductSide > 40)
-                {
-                    Host.ApplyForce(Host.Side * -steeringForce);
-                }
+
+                fleeHeading.Normalize();
             }
 
-            Host.ApplyForce(Host.Heading * this.force);
+            return fleeHeading;
         }
 	}
 }

@@ -46,7 +46,8 @@ namespace AIIG4.Model.InnerModel.Factories
 
         private const String PROJECTILE_TEXTURE_NAME = "GameAssets/laser";
         private const float PROJECTILE_PROPULSION = 0.1f;
-
+        private const float PROJECTILE_STEER_FORCE = 0.002f;
+        private const float PROJECTILE_DETECTION_DISTANCE = 100.0f;
 
 
         //////////////////////////////
@@ -110,8 +111,8 @@ namespace AIIG4.Model.InnerModel.Factories
 
             new ConstantPropulsion(cow, COW_PROPULSION);
             new FlockSteering(cow, COW_STEERING_FORCE);
-            new Flee(cow, EntityManager.EntityType.Turret, COW_PROPULSION_INCREMENT, 0, COW_FLEE_DETECTION_DISTANCE);
-            new Flee(cow, EntityManager.EntityType.Projectile, COW_PROPULSION_INCREMENT, 0, COW_FLEE_DETECTION_DISTANCE);
+            new Flee(cow, EntityManager.EntityType.Turret, COW_PROPULSION_INCREMENT, COW_FLEE_DETECTION_DISTANCE);
+            new Flee(cow, EntityManager.EntityType.Projectile, COW_PROPULSION_INCREMENT, COW_FLEE_DETECTION_DISTANCE);
         }
 
 
@@ -129,6 +130,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
             //adding behaviour
             new ConstantPropulsion(projectile, PROJECTILE_PROPULSION);
+            new ChaseSteering(projectile, EntityManager.EntityType.FlockMember, PROJECTILE_STEER_FORCE, PROJECTILE_DETECTION_DISTANCE);
         }
 
 

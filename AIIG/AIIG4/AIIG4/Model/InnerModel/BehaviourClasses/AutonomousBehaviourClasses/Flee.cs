@@ -41,7 +41,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
             float squaredActiveDistance = activeDistance * activeDistance;
             float squaredCowDistance = (Host.Position - this.entityToFleeFrom.Position).LengthSquared();
 
-            Console.WriteLine("AD: " + squaredActiveDistance + " CD: " + squaredCowDistance);
+            //Console.WriteLine("AD: " + squaredActiveDistance + " CD: " + squaredCowDistance);
 
             if (squaredCowDistance  < squaredActiveDistance)
             {

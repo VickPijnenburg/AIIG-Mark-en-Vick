@@ -23,6 +23,15 @@ namespace AIIG4.Model.InnerModel.Entities.FlockEntityClasses
 
 
 
+        //Properties
+
+        public IEnumerable<FlockEntity> Members
+        {
+            get { return this.flockMembers.Values; }
+        }
+
+
+
         //Methods
 
         public void InsertFlockEntity(FlockEntity flockEntity)

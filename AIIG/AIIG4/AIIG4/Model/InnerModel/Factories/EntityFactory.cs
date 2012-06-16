@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses;
 using AIIG4.Model.InnerModel.Entities.AStarEntityClasses;
 using AIIG4.Model.InnerModel.BehaviourClasses.GraphMovingBehaviourClasses;
+using AIIG4.Model.InnerModel.Entities.FlockEntityClasses;
 
 namespace AIIG4.Model.InnerModel.Factories
 {
@@ -31,10 +32,11 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Cows*/
 
-        private const int NUMBER_OF_COWS = 2;
+        private const int NUMBER_OF_COWS = 20;
 
         private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
-        private const float COW_PROPULSION = 0.07f;
+        private const float COW_PROPULSION = 0.05f;
+        private const float COW_STEERING_FORCE = 0.04f;
 
 
         /*Projectiles*/
@@ -54,7 +56,7 @@ namespace AIIG4.Model.InnerModel.Factories
         public static void CreateStartEntities()
         {
             CreateTurret();
-            CreateCows();
+            CreateCowFlock();
         }
 
 
@@ -79,20 +81,21 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Cows*/
 
-        private static void CreateCows()
+        private static void CreateCowFlock()
         {
+            Flock flock = new Flock();
             for (int i = 0; i < NUMBER_OF_COWS; i++)
             {
-                CreateCow(CreateRandomPosition(), CreateRandomHeading());
+                CreateCow(flock, CreateRandomPosition(), CreateRandomHeading());
             }
         }
 
-        private static void CreateCow(Vector2 startPosition, Vector2 startHeading)
+        private static void CreateCow(Flock flock, Vector2 startPosition, Vector2 startHeading)
         {
             //Creating cow
 
             Texture2D cowTexture = MainGame.Instance.Content.Load<Texture2D>(COW_TEXTURE_NAME);
-            AutonomousEntity cow = new AutonomousEntity(EntityManager.EntityType.FlockMember, cowTexture)
+            FlockEntity cow = new FlockEntity(EntityManager.EntityType.FlockMember, cowTexture, flock)
                 {
                     Position = startPosition,
                     Heading = startHeading
@@ -101,8 +104,8 @@ namespace AIIG4.Model.InnerModel.Factories
 
             //Adding behaviour
 
-            new InputSteeringBehaviour(cow);
             new ConstantPropulsion(cow, COW_PROPULSION);
+            new FlockSteering(cow, COW_STEERING_FORCE);
         }
 
 

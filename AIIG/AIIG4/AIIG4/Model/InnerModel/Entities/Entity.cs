@@ -143,7 +143,7 @@ namespace AIIG4.Model.InnerModel.Entities
 
         /*Removal methods*/
 
-        public void RemoveFromGame()
+        public virtual void RemoveFromGame()
         {
             this.isRemoved = true;
         }

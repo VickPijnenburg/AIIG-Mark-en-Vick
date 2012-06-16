@@ -110,7 +110,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
             new ConstantPropulsion(cow, COW_PROPULSION);
             new FlockSteering(cow, COW_STEERING_FORCE);
-			new Flee(cow, turret, 0, 0, 0);
+			new Flee(cow, turret, 0.5f, 0, 200);
         }
 
 

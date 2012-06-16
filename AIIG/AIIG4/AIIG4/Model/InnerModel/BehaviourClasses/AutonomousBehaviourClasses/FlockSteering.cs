@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AIIG4.Model.InnerModel.Entities;
 using Microsoft.Xna.Framework;
+using AIIG4.Model.InnerModel.Entities.FlockEntityClasses;
 
 namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 {
@@ -16,6 +17,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
         private float steerForce;
         private float maxNeighbourDistance;
+        private float collisionAvoidanceDistance;
 
 
 
@@ -40,12 +42,12 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
         {
             LinkedList<AutonomousEntity> neighbours = CollectNeighbours();
 
-            Vector2 collisionAvoidanceVector;
+            Vector2 collisionAvoidanceVector = CalculateCollisionAvoidanceVector(neighbours);
 
             base.Update(gameTime);
         }
 
-        public Vector2 CalculateCollisionAvoidanceVector()
+        public Vector2 CalculateCollisionAvoidanceVector(LinkedList<AutonomousEntity> neighbours)
         {
             return Vector2.Zero;
         }
@@ -68,6 +70,27 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
                     {
                         neighbours.AddLast((AutonomousEntity)possibleNeighbour);
                     }
+                }
+            }
+
+            return neighbours;
+        }
+
+        private LinkedList<FlockEntity> CollectNeighboursToAvoid(LinkedList<AutonomousEntity> neighbours)
+        {
+            return CollectNeighboursFromListWithinDistance(neighbours, this.collisionAvoidanceDistance);
+        }
+
+        private LinkedList<FlockEntity> CollectNeighboursFromListWithinDistance(System.Collections.IEnumerable possibleNeighbours, float distance)
+        {
+            LinkedList<FlockEntity> neighbours = new LinkedList<FlockEntity>();
+
+            foreach (FlockEntity possibleNeighbour in possibleNeighbours)
+            {
+                float possibleNeighbourDistanceSquared = (possibleNeighbour.Position - this.Host.Position).LengthSquared();
+                if (possibleNeighbourDistanceSquared <= (distance * distance))
+                {
+                    neighbours.AddLast(possibleNeighbour);
                 }
             }
 

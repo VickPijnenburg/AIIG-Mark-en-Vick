@@ -17,7 +17,6 @@ namespace AIIG4.Model.InnerModel.GraphClasses
         private Node node2;
 
         private int cost;
-        private Texture2D lineTexture;
         private Texture2D costTexture;
 
 
@@ -31,8 +30,6 @@ namespace AIIG4.Model.InnerModel.GraphClasses
 
             node1.LinkToEdge(this);
             node2.LinkToEdge(this);
-
-            this.lineTexture = CreateLineTexture();
 
             this.cost = cost;
             costTexture = DetermineCostTexture();
@@ -61,15 +58,22 @@ namespace AIIG4.Model.InnerModel.GraphClasses
 
         //Methods
 
-        public void Draw(GameTime gameTime)
+        public Texture2D DrawLineOnGraphTexture(Texture2D texture)
         {
-            DrawLine();
-            DrawCost();
+            LineDrawingDevice.SetBHLine
+                (
+                texture,
+                LineDrawingDevice.VectorToPoint(node1.Position),
+                LineDrawingDevice.VectorToPoint(node2.Position),
+                Color.Black
+                );
+
+            return texture;
         }
 
-        private void DrawLine()
+        public void Draw(GameTime gameTime)
         {
-            MainView.Instance.SpriteBatch.Draw(lineTexture, Vector2.Zero, Color.White);
+            DrawCost();
         }
 
         private void DrawCost()
@@ -77,22 +81,6 @@ namespace AIIG4.Model.InnerModel.GraphClasses
             Vector2 costPosition = ((Node1.Position + Node2.Position) / 2);
             costPosition -= new Vector2(this.costTexture.Width / 2, this.costTexture.Height / 2);
             MainView.Instance.SpriteBatch.Draw(this.costTexture, costPosition, Color.White);
-        }
-
-        private Texture2D CreateLineTexture()
-        {
-            Rectangle viewRect = MainGame.Instance.GameAreaRect;
-            Texture2D lineTexture = new Texture2D(MainGame.Instance.GraphicsDevice, viewRect.Width, viewRect.Height);
-
-            LineDrawingDevice.SetBHLine
-                (
-                lineTexture,
-                LineDrawingDevice.VectorToPoint(node1.Position),
-                LineDrawingDevice.VectorToPoint(node2.Position),
-                Color.Black
-                );
-
-            return lineTexture;
         }
 
         private Texture2D DetermineCostTexture()

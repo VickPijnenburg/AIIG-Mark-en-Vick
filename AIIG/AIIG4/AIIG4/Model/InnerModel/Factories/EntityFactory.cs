@@ -39,7 +39,7 @@ namespace AIIG4.Model.InnerModel.Factories
 		private const float COW_PROPULSION = 0.05f;
 		private const float COW_STEERING_FORCE = 0.04f;
 		private const float COW_PROPULSION_INCREMENT = 0.1f;
-		private const float COW_FLEE_ACTIVE_DISTANCE = 150f;
+		private const float COW_FLEE_DETECTION_DISTANCE = 200f;
 
 
         /*Projectiles*/
@@ -79,6 +79,7 @@ namespace AIIG4.Model.InnerModel.Factories
             //Adding behaviour
 
             GroupChasingGraphMovement cowChasing = new GroupChasingGraphMovement(turret, EntityManager.EntityType.FlockMember);
+			new ShootingBehaviour(turret);
         }
 
 

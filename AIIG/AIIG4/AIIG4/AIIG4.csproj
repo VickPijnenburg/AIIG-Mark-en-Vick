@@ -109,7 +109,7 @@
   <ItemGroup>
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\AutonomousBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\FlockSteering.cs" />
-    <Compile Include="Model\InnerModel\BehaviourClasses\AutonomousBehaviourClasses\ShootingBehaviour.cs" />
+    <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\ShootingBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\GraphMovingBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\GroupChasingGraphMovement.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\ShootingBehaviour.cs" />

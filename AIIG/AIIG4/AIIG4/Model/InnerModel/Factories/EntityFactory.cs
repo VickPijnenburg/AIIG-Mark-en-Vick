@@ -32,7 +32,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Cows*/
 
-		private const int NUMBER_OF_COWS = 20;
+		private const int NUMBER_OF_COWS = 30;
 
         private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
         private const float COW_SCALE = 0.7f;
@@ -58,14 +58,14 @@ namespace AIIG4.Model.InnerModel.Factories
 
         public static void CreateStartEntities()
         {
-            AStarMovementEntity turret = CreateTurret();
-            CreateCowFlock(turret);
+            CreateTurret();
+            CreateCowFlock();
         }
 
 
         /*Turret*/
 
-        private static AStarMovementEntity CreateTurret()
+        private static void CreateTurret()
         {
 
             //Creating turret
@@ -79,23 +79,21 @@ namespace AIIG4.Model.InnerModel.Factories
             //Adding behaviour
 
             GroupChasingGraphMovement cowChasing = new GroupChasingGraphMovement(turret, EntityManager.EntityType.FlockMember);
-
-			return turret;
         }
 
 
         /*Cows*/
 
-        private static void CreateCowFlock(AStarMovementEntity turret)
+        private static void CreateCowFlock()
         {
             Flock flock = new Flock();
             for (int i = 0; i < NUMBER_OF_COWS; i++)
             {
-				CreateCow(flock, CreateRandomPosition(), CreateRandomHeading(), turret);
+				CreateCow(flock, CreateRandomPosition(), CreateRandomHeading());
             }
         }
 
-        private static void CreateCow(Flock flock, Vector2 startPosition, Vector2 startHeading, AStarMovementEntity turret)
+        private static void CreateCow(Flock flock, Vector2 startPosition, Vector2 startHeading)
         {
             //Creating cow
 
@@ -112,7 +110,8 @@ namespace AIIG4.Model.InnerModel.Factories
 
             new ConstantPropulsion(cow, COW_PROPULSION);
             new FlockSteering(cow, COW_STEERING_FORCE);
-			new Flee(cow, turret, COW_PROPULSION_INCREMENT, 0, COW_FLEE_ACTIVE_DISTANCE);
+            new Flee(cow, EntityManager.EntityType.Turret, COW_PROPULSION_INCREMENT, 0, COW_FLEE_DETECTION_DISTANCE);
+            new Flee(cow, EntityManager.EntityType.Projectile, COW_PROPULSION_INCREMENT, 0, COW_FLEE_DETECTION_DISTANCE);
         }
 
 

@@ -37,6 +37,11 @@ namespace AIIG4.Model.InnerModel
         public EntityManager()
         {
             entities = new SortedDictionary<EntityType, LinkedList<Entity>>();
+
+            foreach(EntityType entityType in Enum.GetValues(typeof(EntityType)))
+            {
+                entities[entityType] = new LinkedList<Entity>();
+            }
         }
 
 
@@ -50,17 +55,7 @@ namespace AIIG4.Model.InnerModel
 
         public void AddEntity(Entity entity)
         {
-            AddEntityListAsNeeded(entity.EntityType);
-
             entities[entity.EntityType].AddLast(entity);
-        }
-
-        private void AddEntityListAsNeeded(EntityType entityType)
-        {
-            if (!this.entities.ContainsKey(entityType))
-            {
-                entities[entityType] = new LinkedList<Entity>();
-            }
         }
 
 
@@ -68,9 +63,7 @@ namespace AIIG4.Model.InnerModel
 
         public LinkedList<Entity> GetEntitiesForType(EntityType entityType)
         {
-            AddEntityListAsNeeded(entityType);
-
-            return this.entities[entityType];
+            return new LinkedList<Entity>(this.entities[entityType]);
         }
 
 

@@ -18,6 +18,8 @@ namespace AIIG4.Model.InnerModel.Entities
 
         private const bool INITIAL_IS_REMOVED = false;
 
+        private const float DEFAULT_SCALE = 1.0f;
+
         private static readonly Vector2 INITIAL_POSITION = Vector2.Zero;
         private static readonly Vector2 INITIAL_HEADING = new Vector2(0, -1);
         private static readonly Vector2 INITIAL_SIDE = new Vector2(-1, 0);
@@ -35,6 +37,7 @@ namespace AIIG4.Model.InnerModel.Entities
         private bool isRemoved;
 
         private Texture2D texture;
+        private float scale;
 
         private Vector2 position;
         private Vector2 heading;
@@ -55,6 +58,7 @@ namespace AIIG4.Model.InnerModel.Entities
             this.isRemoved = INITIAL_IS_REMOVED;
 
             this.texture = startTexture;
+            this.scale = DEFAULT_SCALE;
 
             this.position = INITIAL_POSITION;
             this.heading = INITIAL_HEADING;
@@ -134,6 +138,12 @@ namespace AIIG4.Model.InnerModel.Entities
             get { return new Vector2((this.texture.Width * 0.5f), (this.texture.Height * 0.5f)); }
         }
 
+        public float Scale
+        {
+            get { return this.scale; }
+            set { this.scale = value; }
+        }
+
 
 
         //////////////////////////////
@@ -200,7 +210,7 @@ namespace AIIG4.Model.InnerModel.Entities
                 Color.White,
                 this.RotationToUse,
                 this.Origin,
-                1.0f,
+                this.Scale,
                 SpriteEffects.None,
                 0);
         }

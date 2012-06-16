@@ -35,6 +35,7 @@ namespace AIIG4.Model.InnerModel.Factories
         private const int NUMBER_OF_COWS = 20;
 
         private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
+        private const float COW_SCALE = 0.7f;
         private const float COW_PROPULSION = 0.05f;
         private const float COW_STEERING_FORCE = 0.04f;
 
@@ -99,6 +100,7 @@ namespace AIIG4.Model.InnerModel.Factories
             Texture2D cowTexture = MainGame.Instance.Content.Load<Texture2D>(COW_TEXTURE_NAME);
             FlockEntity cow = new FlockEntity(EntityManager.EntityType.FlockMember, cowTexture, flock)
                 {
+                    Scale = COW_SCALE,
                     Position = startPosition,
                     Heading = startHeading
                 };

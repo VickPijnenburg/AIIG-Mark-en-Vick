@@ -15,11 +15,11 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
         //Constants//
         //////////////////////////////
 
-        private const float COLLISION_AVOID_PRIORITY = 2.0f;
-        private const float FLOCK_PRIORITY = 4.0f;
-        private const float ALIGN_PRIORITY = 6.0f;
+        private const float COLLISION_AVOID_PRIORITY = 40.0f;
+        private const float FLOCK_PRIORITY = 1.0f;
+        private const float ALIGN_PRIORITY = 10.0f;
 
-        private const float DETECTION_DISTANCE = 115.0f;
+        private const float DETECTION_DISTANCE = 80.0f;
 
 
 
@@ -85,18 +85,31 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
             if (neighboursToAvoid.Count > 0)
             {
-                Vector2 collisionAvoidanceVector = this.Host.Position;
-                collisionAvoidanceVector -= CalculateAveragePosition(neighbours);
-                collisionAvoidanceVector.Normalize();
-
-                float priority = COLLISION_AVOID_PRIORITY;
-                priority /= collisionAvoidanceVector.LengthSquared();
-                priority *= DETECTION_DISTANCE;
-
-                collisionAvoidanceVector *= priority;
+                Vector2 collisionAvoidanceVector = CalculateCollisionAvoidVector(neighbours);
+                collisionAvoidanceVector *= COLLISION_AVOID_PRIORITY;
 
                 force += collisionAvoidanceVector;
             }
+        }
+
+        private Vector2 CalculateCollisionAvoidVector(LinkedList<FlockEntity> neighbours)
+        {
+            Vector2 collisionAvoidance = Vector2.Zero;
+
+            foreach (FlockEntity neighbour in neighbours)
+            {
+                Vector2 neighbourAvoidanceVector = this.Host.Position;
+                neighbourAvoidanceVector -= neighbour.Position;
+
+                float avoidPriority = DETECTION_DISTANCE / neighbourAvoidanceVector.LengthSquared();
+
+                neighbourAvoidanceVector *= avoidPriority;
+
+                collisionAvoidance += neighbourAvoidanceVector;
+            }
+
+            collisionAvoidance.Normalize();
+            return collisionAvoidance;
         }
 
         private void ApplyFlocking(LinkedList<FlockEntity> neighbours, ref Vector2 force)

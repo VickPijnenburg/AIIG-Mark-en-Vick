@@ -48,7 +48,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
         private const String PROJECTILE_TEXTURE_NAME = "GameAssets/bullet";
         private const float PROJECTILE_PROPULSION = 0.1f;
-        private const float PROJECTILE_STEER_FORCE = 0.01f;
+        private const float PROJECTILE_STEER_FORCE = 0.5f;
         private const float PROJECTILE_DETECTION_DISTANCE = 300.0f;
         private const bool PROJECTILE_WRAPS_AROUND = false;
 

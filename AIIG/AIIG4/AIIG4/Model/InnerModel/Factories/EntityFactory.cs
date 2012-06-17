@@ -33,7 +33,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Cows*/
 
-		private const int NUMBER_OF_COWS = 30;
+		private const int NUMBER_OF_COWS = 100;
 
         private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
         private const float COW_SCALE = 0.7f;
@@ -51,6 +51,8 @@ namespace AIIG4.Model.InnerModel.Factories
         private const float PROJECTILE_STEER_FORCE = 0.5f;
         private const float PROJECTILE_DETECTION_DISTANCE = 300.0f;
         private const bool PROJECTILE_WRAPS_AROUND = false;
+        private const float PROJECTILE_START_VELOCITY = 0.8f;
+
 
 
         //////////////////////////////
@@ -130,7 +132,8 @@ namespace AIIG4.Model.InnerModel.Factories
             AutonomousEntity projectile = new AutonomousEntity(EntityManager.EntityType.Projectile, projectileTexture, PROJECTILE_WRAPS_AROUND)
                 {
                     Position = startPosition,
-                    Heading = startHeading
+                    Heading = startHeading,
+                    Velocity = startHeading * PROJECTILE_START_VELOCITY
                 };
 
             //adding behaviour

@@ -41,11 +41,24 @@ namespace AIIG4.Model.InnerModel.Entities
         public AutonomousEntity(EntityManager.EntityType entityType, Texture2D startTexture, bool wrapsAround)
             : base(entityType, startTexture)
         {
-            this.mass = DEFAULT_MASS;
-            this.maxSpeed = DEFAULT_MAX_SPEED;
             this.wrapsAround = wrapsAround;
 
+            this.mass = DEFAULT_MASS;
+            this.maxSpeed = DEFAULT_MAX_SPEED;
+
             this.currentForce = INITIAL_FORCE;
+        }
+
+
+
+        //////////////////////////////
+        //Properties//
+        //////////////////////////////
+
+        public Vector2 Velocity
+        {
+            get { return this.velocity; }
+            set { this.velocity = value; }
         }
 
 

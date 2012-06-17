@@ -27,6 +27,7 @@ namespace AIIG4.Model.InnerModel.Entities
 
         private float mass;
         private float maxSpeed;
+        private bool wrapsAround;
 
         private Vector2 velocity;
         private Vector2 currentForce;
@@ -37,11 +38,12 @@ namespace AIIG4.Model.InnerModel.Entities
         //Constructors//
         //////////////////////////////
 
-        public AutonomousEntity(EntityManager.EntityType entityType, Texture2D startTexture)
+        public AutonomousEntity(EntityManager.EntityType entityType, Texture2D startTexture, bool wrapsAround)
             : base(entityType, startTexture)
         {
             this.mass = DEFAULT_MASS;
             this.maxSpeed = DEFAULT_MAX_SPEED;
+            this.wrapsAround = wrapsAround;
 
             this.currentForce = INITIAL_FORCE;
         }
@@ -125,7 +127,17 @@ namespace AIIG4.Model.InnerModel.Entities
         {
             this.Position += this.velocity * gameTime.ElapsedGameTime.Milliseconds;
 
-            WrapAround();
+            if (DetermineIsOutOfBounds())
+            {
+                if (this.wrapsAround)
+                {
+                    WrapAround();
+                }
+                else
+                {
+                    this.RemoveFromGame();
+                }
+            }
         }
 
         private void WrapAround()
@@ -153,6 +165,15 @@ namespace AIIG4.Model.InnerModel.Entities
             }
 
             this.Position = newPosition;
+        }
+
+        private bool DetermineIsOutOfBounds()
+        {
+            Rectangle gameAreaRect = MainGame.Instance.GameAreaRect;
+            return (this.Position.X < gameAreaRect.X
+                || this.Position.X > gameAreaRect.Width
+                || this.Position.Y < gameAreaRect.Y
+                || this.Position.Y > gameAreaRect.Height);
         }
 
 

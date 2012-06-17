@@ -17,8 +17,8 @@ namespace AIIG4.Model.InnerModel.Entities.FlockEntityClasses
 
         //Constructors
 
-        public FlockEntity(EntityManager.EntityType entityType, Texture2D startTexture, Flock flock)
-            : base(entityType, startTexture)
+        public FlockEntity(EntityManager.EntityType entityType, Texture2D startTexture, bool wrapsAround, Flock flock)
+            : base(entityType, startTexture, wrapsAround)
         {
             this.flock = flock;
             this.flock.InsertFlockEntity(this);

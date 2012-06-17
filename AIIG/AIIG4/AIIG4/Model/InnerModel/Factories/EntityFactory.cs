@@ -41,6 +41,7 @@ namespace AIIG4.Model.InnerModel.Factories
 		private const float COW_STEERING_FORCE = 0.04f;
 		private const float COW_PROPULSION_INCREMENT = 0.1f;
 		private const float COW_FLEE_DETECTION_DISTANCE = 200f;
+        private const bool COW_WRAPS_AROUND = true;
 
 
         /*Projectiles*/
@@ -49,6 +50,7 @@ namespace AIIG4.Model.InnerModel.Factories
         private const float PROJECTILE_PROPULSION = 0.1f;
         private const float PROJECTILE_STEER_FORCE = 0.01f;
         private const float PROJECTILE_DETECTION_DISTANCE = 300.0f;
+        private const bool PROJECTILE_WRAPS_AROUND = false;
 
 
         //////////////////////////////
@@ -102,7 +104,7 @@ namespace AIIG4.Model.InnerModel.Factories
             //Creating cow
 
             Texture2D cowTexture = MainGame.Instance.Content.Load<Texture2D>(COW_TEXTURE_NAME);
-            FlockEntity cow = new FlockEntity(EntityManager.EntityType.FlockMember, cowTexture, flock)
+            FlockEntity cow = new FlockEntity(EntityManager.EntityType.FlockMember, cowTexture, COW_WRAPS_AROUND, flock)
                 {
                     Scale = COW_SCALE,
                     Position = startPosition,
@@ -125,7 +127,7 @@ namespace AIIG4.Model.InnerModel.Factories
         {
             //creating entity
             Texture2D projectileTexture = MainGame.Instance.Content.Load<Texture2D>(PROJECTILE_TEXTURE_NAME);
-            AutonomousEntity projectile = new AutonomousEntity(EntityManager.EntityType.Projectile, projectileTexture)
+            AutonomousEntity projectile = new AutonomousEntity(EntityManager.EntityType.Projectile, projectileTexture, PROJECTILE_WRAPS_AROUND)
                 {
                     Position = startPosition,
                     Heading = startHeading

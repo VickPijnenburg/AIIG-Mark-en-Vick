@@ -13,7 +13,9 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         //Constants
 
-        private const int SHOT_INTERVAL = 3000;
+        private const int SHOT_INTERVAL = 1000;
+        private const int INITIAL_TIME_ELAPSED = 0;
+
 
 
         //Fields
@@ -27,7 +29,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
         public ShootingBehaviour(Entity host)
             : base(host)
         {
-            
+            this.elapsedTimeSinceLastShot = INITIAL_TIME_ELAPSED;
         }
 
 
@@ -52,6 +54,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
             if (elapsedTimeSinceLastShot >= SHOT_INTERVAL)
             {
                 Shoot();
+                this.elapsedTimeSinceLastShot %= SHOT_INTERVAL;
             }
         }
 

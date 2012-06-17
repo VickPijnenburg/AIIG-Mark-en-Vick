@@ -46,7 +46,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Projectiles*/
 
-        private const String PROJECTILE_TEXTURE_NAME = "GameAssets/laser";
+        private const String PROJECTILE_TEXTURE_NAME = "GameAssets/bullet";
         private const float PROJECTILE_PROPULSION = 0.1f;
         private const float PROJECTILE_STEER_FORCE = 0.01f;
         private const float PROJECTILE_DETECTION_DISTANCE = 300.0f;

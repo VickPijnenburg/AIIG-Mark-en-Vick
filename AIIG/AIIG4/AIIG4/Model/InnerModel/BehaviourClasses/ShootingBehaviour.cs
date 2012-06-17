@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using AIIG4.Model.InnerModel.Entities;
 using Microsoft.Xna.Framework;
+using AIIG4.Model.InnerModel.Factories;
 
 namespace AIIG4.Model.InnerModel.BehaviourClasses
 {
@@ -56,7 +57,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         private void Shoot()
         {
-
+            EntityFactory.CreateProjectile(this.Host.Position, this.Host.Heading);
         }
 
 

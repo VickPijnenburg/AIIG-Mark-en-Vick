@@ -9,6 +9,7 @@ using AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses;
 using AIIG4.Model.InnerModel.Entities.AStarEntityClasses;
 using AIIG4.Model.InnerModel.BehaviourClasses.GraphMovingBehaviourClasses;
 using AIIG4.Model.InnerModel.Entities.FlockEntityClasses;
+using AIIG4.Model.InnerModel.BehaviourClasses;
 
 namespace AIIG4.Model.InnerModel.Factories
 {
@@ -80,7 +81,8 @@ namespace AIIG4.Model.InnerModel.Factories
             //Adding behaviour
 
             GroupChasingGraphMovement cowChasing = new GroupChasingGraphMovement(turret, EntityManager.EntityType.FlockMember);
-			new ShootingBehaviour(turret);
+			new TargetingBehaviour(turret);
+            new ShootingBehaviour(turret);
         }
 
 

@@ -8,24 +8,30 @@ using AIIG4.Model.InnerModel.BehaviourClasses.GraphMovingBehaviourClasses;
 
 namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 {
-	class ShootingBehaviour : GraphMovingBehaviour
+    class TargetingBehaviour : GraphMovingBehaviour
 	{
 
 		//Constants
 
-		private const int CHECK_INTERVAL = 2000;
+		private const int CHECK_INTERVAL = 180;
 		private const int INITIAL_ELAPSED_TIME = 0;
+        
 
 
 		//Fields
 
+        private Entity currentTarget;
 		private int elapsedTimeSinceLastCheck;
+
+
 
 		//Constructors
 
-		public ShootingBehaviour(GraphMovingEntity host)
+		public TargetingBehaviour(GraphMovingEntity host)
 			: base(host)
 		{
+            this.currentTarget = null;
+            this.elapsedTimeSinceLastCheck = INITIAL_ELAPSED_TIME;
 		}
 
 
@@ -38,10 +44,13 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
 			if (elapsedTimeSinceLastCheck >= CHECK_INTERVAL)
 			{
-				Shoot();
-
+				UpdateCurrentTarget();
 				elapsedTimeSinceLastCheck = INITIAL_ELAPSED_TIME;
 			}
+            if (this.currentTarget != null)
+            {
+                UpdateHostHeading();
+            }
 		}
 
 		private void ProceedCheckIntervalTime(GameTime gameTime)
@@ -49,25 +58,30 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 			this.elapsedTimeSinceLastCheck += gameTime.ElapsedGameTime.Milliseconds;
 		}
 
-		private void Shoot()
+        private void UpdateCurrentTarget()
 		{
-
-			Entity closestEntity = null;
-			float shortestDistanceFound = 0;
 			LinkedList<Entity> targets = MainModel.Instance.EntityManagement.GetEntitiesForType(EntityManager.EntityType.FlockMember);
+
+            float? shortestDistanceFound = null;
+
 			foreach(Entity target in targets)
 			{
 				float currentEntityDistance = (target.Position - this.Host.Position).LengthSquared();
 
-				if (currentEntityDistance < shortestDistanceFound)
+				if ((shortestDistanceFound == null)
+                    || currentEntityDistance < shortestDistanceFound)
 				{
 					shortestDistanceFound = currentEntityDistance;
-					closestEntity = target;
+					this.currentTarget = target;
 				}
 			}
-			//Vector2 heading = Host.Position - closestEntity.Position;
-			//heading.Normalize();
-			//this.Host.Heading = heading;
 		}
+
+        private void UpdateHostHeading()
+        {
+            Vector2 newHeading = this.currentTarget.Position - this.Host.Position;
+            newHeading.Normalize();
+            this.Host.Heading = newHeading;
+        }
 	}
 }

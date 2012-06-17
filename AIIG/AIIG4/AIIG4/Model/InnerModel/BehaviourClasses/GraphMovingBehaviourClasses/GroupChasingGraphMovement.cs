@@ -14,7 +14,7 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.GraphMovingBehaviourClasses
 
         //Constants
 
-        private const int CHECK_INTERVAL = 1000;
+        private const int CHECK_INTERVAL = 180;
         private const int INITIAL_ELAPSED_TIME = 0;
 
 

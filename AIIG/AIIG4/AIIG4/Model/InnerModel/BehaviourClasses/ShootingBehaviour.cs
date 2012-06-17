@@ -20,16 +20,29 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         //Fields
 
-        private int elapsedTimeSinceLastShot;
+        private EntityManager.EntityType targetType;
 
+        private int elapsedTimeSinceLastShot;
+        
 
 
         //Constructors
 
-        public ShootingBehaviour(Entity host)
+        public ShootingBehaviour(Entity host, EntityManager.EntityType targetType)
             : base(host)
         {
+            this.targetType = targetType;
+
             this.elapsedTimeSinceLastShot = INITIAL_TIME_ELAPSED;
+        }
+
+
+
+        //Properties
+
+        public bool TargetsRemain
+        {
+            get { return (MainModel.Instance.EntityManagement.GetEntitiesForType(this.targetType).Count > 0); }
         }
 
 
@@ -60,7 +73,10 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses
 
         private void Shoot()
         {
-            EntityFactory.CreateProjectile(this.Host.Position, this.Host.Heading);
+            if (this.TargetsRemain)
+            {
+                EntityFactory.CreateProjectile(this.targetType, this.Host.Position, this.Host.Heading);
+            }
         }
 
 

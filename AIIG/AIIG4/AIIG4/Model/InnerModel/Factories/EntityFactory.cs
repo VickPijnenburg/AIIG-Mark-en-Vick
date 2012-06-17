@@ -33,7 +33,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Cows*/
 
-		private const int NUMBER_OF_COWS = 100;
+		private const int NUMBER_OF_COWS = 35;
 
         private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
         private const float COW_SCALE = 0.7f;
@@ -49,7 +49,7 @@ namespace AIIG4.Model.InnerModel.Factories
         private const String PROJECTILE_TEXTURE_NAME = "GameAssets/bullet";
         private const float PROJECTILE_PROPULSION = 0.1f;
         private const float PROJECTILE_STEER_FORCE = 0.5f;
-        private const float PROJECTILE_DETECTION_DISTANCE = 300.0f;
+        private const float PROJECTILE_DETECTION_DISTANCE = 260.0f;
         private const bool PROJECTILE_WRAPS_AROUND = false;
         private const float PROJECTILE_START_VELOCITY = 0.8f;
 
@@ -77,6 +77,7 @@ namespace AIIG4.Model.InnerModel.Factories
             //Creating turret
 
             Texture2D turretTexture = MainGame.Instance.Content.Load<Texture2D>(TURRET_TEXTURE_NAME);
+
             AStarMovementEntity turret = new AStarMovementEntity(
                 EntityManager.EntityType.Turret,
                 turretTexture,
@@ -86,7 +87,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
             GroupChasingGraphMovement cowChasing = new GroupChasingGraphMovement(turret, EntityManager.EntityType.FlockMember);
 			new TargetingBehaviour(turret);
-            new ShootingBehaviour(turret);
+            new ShootingBehaviour(turret, EntityManager.EntityType.FlockMember);
         }
 
 
@@ -125,7 +126,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Projectile*/
 
-        public static void CreateProjectile(Vector2 startPosition, Vector2 startHeading)
+        public static void CreateProjectile(EntityManager.EntityType targetType, Vector2 startPosition, Vector2 startHeading)
         {
             //creating entity
             Texture2D projectileTexture = MainGame.Instance.Content.Load<Texture2D>(PROJECTILE_TEXTURE_NAME);
@@ -138,8 +139,8 @@ namespace AIIG4.Model.InnerModel.Factories
 
             //adding behaviour
             new ConstantPropulsion(projectile, PROJECTILE_PROPULSION);
-            new ChaseSteering(projectile, EntityManager.EntityType.FlockMember, PROJECTILE_STEER_FORCE, PROJECTILE_DETECTION_DISTANCE);
-			new KillBehaviour(projectile);
+            new ChaseSteering(projectile, targetType, PROJECTILE_STEER_FORCE, PROJECTILE_DETECTION_DISTANCE);
+			new KillBehaviour(projectile, targetType);
         }
 
 

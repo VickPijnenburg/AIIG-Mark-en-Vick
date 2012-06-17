@@ -144,6 +144,16 @@ namespace AIIG4.Model.InnerModel.Entities
             set { this.scale = value; }
         }
 
+        public float Width
+        {
+            get { return texture.Width * this.Scale; }
+        }
+
+        public float Height
+        {
+            get { return texture.Height * this.Scale; }
+        }
+
 
 
         //////////////////////////////

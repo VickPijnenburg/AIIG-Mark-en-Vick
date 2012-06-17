@@ -36,14 +36,14 @@ namespace AIIG4.Model.InnerModel.BehaviourClasses.AutonomousBehaviourClasses
 
                 if (dotProductSide < 0)
                 {
-                    if (dotProductHeading < 0 || dotProductSide < 40)
+                    if (dotProductHeading > 0 || dotProductSide < 4.0f)
                     {
                         Host.ApplyForce(Host.Side * -this.SteeringForce);
                     }
                 }
                 else
                 {
-                    if (dotProductHeading < 0 || dotProductSide > 40)
+                    if (dotProductHeading > 0 || dotProductSide > 4.0f)
                     {
                         Host.ApplyForce(Host.Side * this.SteeringForce);
                     }

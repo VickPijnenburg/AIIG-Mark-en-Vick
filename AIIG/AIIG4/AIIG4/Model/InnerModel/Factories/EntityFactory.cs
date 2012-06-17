@@ -33,7 +33,7 @@ namespace AIIG4.Model.InnerModel.Factories
 
         /*Cows*/
 
-		private const int NUMBER_OF_COWS = 30;
+		private const int NUMBER_OF_COWS = 100;
 
         private const String COW_TEXTURE_NAME = "GameAssets/lemmling_Cartoon_cow";
         private const float COW_SCALE = 0.7f;

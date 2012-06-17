@@ -113,6 +113,7 @@
     <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\TargetingBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\GraphMovingBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\GraphMovingBehaviourClasses\GroupChasingGraphMovement.cs" />
+    <Compile Include="Model\InnerModel\BehaviourClasses\KillBehaviour.cs" />
     <Compile Include="Model\InnerModel\BehaviourClasses\ShootingBehaviour.cs" />
     <Compile Include="Model\InnerModel\Entities\AStarEntityClasses\AStarMovementEntity.cs" />
     <Compile Include="Model\InnerModel\Entities\AStarEntityClasses\AStarNodeCapsule.cs" />

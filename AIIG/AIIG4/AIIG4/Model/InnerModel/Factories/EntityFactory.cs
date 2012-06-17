@@ -139,6 +139,7 @@ namespace AIIG4.Model.InnerModel.Factories
             //adding behaviour
             new ConstantPropulsion(projectile, PROJECTILE_PROPULSION);
             new ChaseSteering(projectile, EntityManager.EntityType.FlockMember, PROJECTILE_STEER_FORCE, PROJECTILE_DETECTION_DISTANCE);
+			new KillBehaviour(projectile);
         }
 
 
